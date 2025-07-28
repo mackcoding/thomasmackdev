@@ -1,0 +1,637 @@
+﻿@page
+@model thomasmack.dev.Pages.PortfolioModel
+@{
+}
+
+@section Subheader {
+                Portfolio
+}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <figure class="relative overflow-hidden mb-4">
+            <img src="~/portfolio/callquality.webp"
+                 class="w-full h-64 object-cover cursor-pointer hover:scale-105 transition-transform duration-300 rounded-lg"
+                 data-modal="modal-callquality"
+                 alt="Support Call Quality Review Interface" />
+        </figure>
+        <div>
+            <h2 class="text-lg font-bold mb-3">Support Call Quality Review</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--bootstrap] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Bootstrap</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--dotnet] text-sm flex-shrink-0"></span>
+                    <span class="truncate">ASP.NET (C#)</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--microsoftsqlserver] text-sm flex-shrink-0"></span>
+                    <span class="truncate">SQL Server</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[mdi--microsoft-windows] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Windows Server</span>
+                </span>
+            </div>
+            <div class="prose prose-sm max-w-none">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="leading-relaxed mb-8">
+                        While at a web‑hosting call center, the support manager scored every call in Excel—a manual, time‑consuming process prone to formula errors and data‑entry overhead.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        I developed an <strong>ASP .NET web application</strong> that implemented their existing scoring formula, provided a simple Bootstrap interface for entering evaluation criteria, and stored results in SQL Server.
+                    </p>
+
+                    <p class="leading-relaxed">
+                        This solution <strong>eliminated spreadsheet maintenance</strong>, <strong>reduced review time</strong>, and gave management <strong>immediate visibility</strong> into call‑quality trends. The app was designed to support future features—batch uploads and historical reporting—but I transitioned off the project before those enhancements were completed.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <dialog id="modal-callquality" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/callquality.webp" class="w-full h-auto rounded-lg" alt="Support Call Quality Review Interface" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <figure class="relative overflow-hidden mb-4">
+            <img src="~/portfolio/chromebook_ext.webp"
+                 class="w-full h-64 object-cover cursor-pointer hover:scale-105 transition-transform duration-300 rounded-lg"
+                 data-modal="modal-chromebook"
+                 alt="Chromebook Extension Testing" />
+        </figure>
+        <div>
+            <h2 class="text-lg font-bold mb-3">Chromebook Summer Lockout Project</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--javascript] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Javascript</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--googlechrome] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Chrome Extension</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--dotnet] text-sm flex-shrink-0"></span>
+                    <span class="truncate">ASP.NET (C#)</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--microsoftsqlserver] text-sm flex-shrink-0"></span>
+                    <span class="truncate">SQL Server</span>
+                </span>
+            </div>
+            <div class="prose prose-sm max-w-none">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="leading-relaxed mb-8">
+                        While at the school district, students were failing to return Chromebooks at year's end, creating asset‑management headaches and potential losses.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        I built a lightweight <strong>ASP .NET control panel</strong> using Javascript and the Chrome Kiosk Extension to pull student email addresses and device serial numbers into a centralized block list.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        If a student or device appeared on that list, the Chromebook displayed a <strong>forced popup</strong>—either in Kiosk mode or at login—notifying the user that the device must be returned.
+                    </p>
+
+                    <p class="leading-relaxed">
+                        The image shows several Chromebooks during testing to validate the popup functionality.
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <dialog id="modal-chromebook" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/chromebook_ext.webp" class="w-full h-auto rounded-lg" alt="Chromebook Extension Testing" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <figure class="relative overflow-hidden mb-4">
+            <div class="carousel w-full h-64 rounded-lg">
+                <div id="slide1" class="carousel-item relative w-full">
+                    <img src="~/portfolio/bus1.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-bus1"
+                         alt="Digital Signage Bus Display 1" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#slide4" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide4">❮</a>
+                        <a href="#slide2" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide2">❯</a>
+                    </div>
+                </div>
+                <div id="slide2" class="carousel-item relative w-full">
+                    <img src="~/portfolio/bus2.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-bus2"
+                         alt="Digital Signage Bus Display 2" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#slide1" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide1">❮</a>
+                        <a href="#slide3" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide3">❯</a>
+                    </div>
+                </div>
+                <div id="slide3" class="carousel-item relative w-full">
+                    <img src="~/portfolio/bus3.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-bus3"
+                         alt="Digital Signage Bus Display 3" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#slide2" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide2">❮</a>
+                        <a href="#slide4" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide4">❯</a>
+                    </div>
+                </div>
+                <div id="slide4" class="carousel-item relative w-full">
+                    <img src="~/portfolio/bus4.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-bus4"
+                         alt="Digital Signage Bus Display 4" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#slide3" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide3">❮</a>
+                        <a href="#slide1" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="slide1">❯</a>
+                    </div>
+                </div>
+            </div>
+        </figure>
+        <div>
+            <h2 class="text-lg font-bold mb-3">Digital Signage</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--dotnet] text-sm flex-shrink-0"></span>
+                    <span class="truncate">ASP.NET Forms</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--ubuntu] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Ubuntu LTS</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[logos--mono] text-sm flex-shrink-0" style="filter: brightness(0) invert(1);"></span>
+
+
+                    <span class="truncate">Mono</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--jquery] text-sm flex-shrink-0"></span>
+                    <span class="truncate">jQuery</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--bootstrap] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Bootstrap</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--microsoftsqlserver] text-sm flex-shrink-0"></span>
+                    <span class="truncate">SQL Server</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[carbon--tcp-ip-service] text-sm flex-shrink-0"></span>
+                    <span class="truncate">WebSockets</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--javascript] text-sm flex-shrink-0"></span>
+                    <span class="truncate">JavaScript</span>
+                </span>
+            </div>
+            <div class="prose prose-sm max-w-none">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="leading-relaxed mb-8">
+                        My digital signage project came about when we could not find a good digital signage solution. From scratch, I wrote a basic signage tool that allowed staff to add slides, videos, schedules, and photos via a <strong>simple web interface</strong>.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        The images show how the system could scale to unconventional displays. On a school bus cut in half, four TVs were mounted vertically in the windows. The vendor solution we tested ran on CentOS with a router and thin clients, but it was costly, unstable, and frequently went offline.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        I replaced it with my own solution and built a <strong>lightweight server on Ubuntu</strong> with a quad‑HDMI video card. I customized this mention to run Chrome in full‑screen mode at boot and point to my web app.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        In the end, the signage system was deployed at <strong>every school in the district</strong>, with some sites operating up to 10+ TVs per location. It ran reliably for over four years without intervention.
+                    </p>
+
+                    <p class="leading-relaxed">
+                        The display units booted a <strong>kiosk extension</strong> that showed a one‑time pairing code. Staff entered the code on the site to link the device, then a <strong>WebSocket connection</strong> enabled instant content updates.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <dialog id="modal-bus1" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/bus1.webp" class="w-full h-auto rounded-lg" alt="Digital Signage Bus Display 1" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-bus2" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/bus2.webp" class="w-full h-auto rounded-lg" alt="Digital Signage Bus Display 2" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-bus3" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/bus3.webp" class="w-full h-auto rounded-lg" alt="Digital Signage Bus Display 3" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-bus4" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/bus4.webp" class="w-full h-auto rounded-lg" alt="Digital Signage Bus Display 4" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <figure class="relative overflow-hidden mb-4">
+            <div class="carousel w-full h-64 rounded-lg">
+                <div id="gmt-slide1" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_overview.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_overview"
+                         alt="Google Management Tool Overview" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#gmt-slide5" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide5">❮</a>
+                        <a href="#gmt-slide2" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide2">❯</a>
+                    </div>
+                </div>
+                <div id="gmt-slide2" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_tempusers.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_tempusers"
+                         alt="Temporary Users Interface" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#gmt-slide1" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide1">❮</a>
+                        <a href="#gmt-slide3" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide3">❯</a>
+                    </div>
+                </div>
+                <div id="gmt-slide3" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_user_view1.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_user_view1"
+                         alt="User Management View 1" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#gmt-slide2" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide2">❮</a>
+                        <a href="#gmt-slide4" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide4">❯</a>
+                    </div>
+                </div>
+                <div id="gmt-slide4" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_user_view2.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_user_view2"
+                         alt="User Management View 2" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#gmt-slide3" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide3">❮</a>
+                        <a href="#gmt-slide5" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide5">❯</a>
+                    </div>
+                </div>
+                <div id="gmt-slide5" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_user_view3.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_user_view3"
+                         alt="User Management View 3" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#gmt-slide4" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide4">❮</a>
+                        <a href="#gmt-slide1" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="gmt-slide1">❯</a>
+                    </div>
+                </div>
+            </div>
+        </figure>
+        <div>
+            <h2 class="text-lg font-bold mb-3">Google Management Tool</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--dotnet] text-sm flex-shrink-0"></span>
+                    <span class="truncate">ASP.NET MVC</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--jquery] text-sm flex-shrink-0"></span>
+                    <span class="truncate">jQuery</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--debian] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Debian</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--bootstrap] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Bootstrap</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--microsoftsqlserver] text-sm flex-shrink-0"></span>
+                    <span class="truncate">SQL Server</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[carbon--tcp-ip-service] text-sm flex-shrink-0"></span>
+                    <span class="truncate">WebSockets</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--javascript] text-sm flex-shrink-0"></span>
+                    <span class="truncate">JavaScript</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--google] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Google API</span>
+                </span>
+            </div>
+            <div class="prose prose-sm max-w-none">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="leading-relaxed mb-8">
+                        This tool began as a faster way to search users and devices in <strong>Google Workspace</strong> by syncing data into a local SQL Server for low-latency operations, but quickly evolved into a comprehensive control panel that centralized admin actions and audit logging, eliminating the need for direct Google admin access.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        User and device records were synced every few hours, enabling rapid queries and automation. Key features included a <strong>Chrome extension for tracking missing devices</strong>—used by State Police to find a missing student—site-specific browsing restrictions for students on non-educational networks, advanced search with filters, and admin tools like temporary user generation (auto-deletes after 48 hours), detailed audit logging, org-unit audits with auto-fix, and full user management.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        An <strong>automated report generator</strong> replaced manual Excel imports for weekly support metrics, and additional utilities were developed over time to automate nearly every Google Workspace task needed by the district.
+                    </p>
+
+                    <p class="leading-relaxed">
+                        The result was a robust, self-service admin platform that <strong>reduced help-desk load</strong>, <strong>enforced consistent policy</strong>, and provided <strong>full compliance audit trails</strong>.
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <dialog id="modal-cp_overview" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_overview.webp" class="w-full h-auto rounded-lg" alt="Google Management Tool Overview" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-cp_tempusers" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_tempusers.webp" class="w-full h-auto rounded-lg" alt="Temporary Users Interface" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-cp_user_view1" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_user_view1.webp" class="w-full h-auto rounded-lg" alt="User Management View 1" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-cp_user_view2" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_user_view2.webp" class="w-full h-auto rounded-lg" alt="User Management View 2" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-cp_user_view3" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_user_view3.webp" class="w-full h-auto rounded-lg" alt="User Management View 3" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <figure class="relative overflow-hidden mb-4">
+            <div class="carousel w-full h-64 rounded-lg">
+                <div id="security-slide1" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_security1.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_security1"
+                         alt="Security Camera Interface 1" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#security-slide2" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="security-slide2">❮</a>
+                        <a href="#security-slide2" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="security-slide2">❯</a>
+                    </div>
+                </div>
+                <div id="security-slide2" class="carousel-item relative w-full">
+                    <img src="~/portfolio/cp_security2.webp"
+                         class="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                         data-modal="modal-cp_security2"
+                         alt="Security Camera Interface 2" />
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 pointer-events-none">
+                        <a href="#security-slide1" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="security-slide1">❮</a>
+                        <a href="#security-slide1" class="btn btn-circle btn-sm opacity-70 hover:opacity-100 pointer-events-auto" data-slide="security-slide1">❯</a>
+                    </div>
+                </div>
+            </div>
+        </figure>
+        <div>
+            <h2 class="text-lg font-bold mb-3">Security Camera Viewer</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--dotnet] text-sm flex-shrink-0"></span>
+                    <span class="truncate">ASP.NET (C#)</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--jquery] text-sm flex-shrink-0"></span>
+                    <span class="truncate">jQuery</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--debian] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Debian</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[logos--mono] text-sm flex-shrink-0" style="filter: brightness(0) invert(1);"></span>
+                    <span class="truncate">Mono</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--bootstrap] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Bootstrap</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--microsoftsqlserver] text-sm flex-shrink-0"></span>
+                    <span class="truncate">SQL Server</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[carbon--tcp-ip-service] text-sm flex-shrink-0"></span>
+                    <span class="truncate">WebSockets</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--javascript] text-sm flex-shrink-0"></span>
+                    <span class="truncate">JavaScript</span>
+                </span>
+            </div>
+            <div class="prose prose-sm max-w-none">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="leading-relaxed mb-8">
+                        Office administrators needed a cost‑effective way to monitor front‑door cameras without purchasing an expensive third‑party system. I extended our existing digital‑signage framework to build a <strong>Security Camera Viewer</strong>: an ASP .NET web application paired with a kiosk client.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        The kiosk app connects over <strong>WebSockets</strong> to our Debian/Mono server, pulling and displaying live camera feeds. Administrators can remotely refresh, swap or reboot any viewer device from the web interface. Configurable on‑screen overlays include the school calendar, a live clock and outdoor temperature, all driven by server‑side settings.
+                    </p>
+
+                    <p class="leading-relaxed">
+                        This in‑house solution delivered <strong>real‑time security visibility</strong> at a fraction of the vendor cost and can be managed entirely through our custom control panel.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <dialog id="modal-cp_security1" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_security1.webp" class="w-full h-auto rounded-lg" alt="Security Camera Interface 1" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="modal-cp_security2" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_security2.webp" class="w-full h-auto rounded-lg" alt="Security Camera Interface 2" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <figure class="relative overflow-hidden mb-4">
+            <img src="~/portfolio/cp_transportation.webp"
+                 class="w-full h-64 object-cover cursor-pointer hover:scale-105 transition-transform duration-300 rounded-lg"
+                 data-modal="modal-cp_transport1"
+                 alt="Transportation Viewer Interface 1" />
+        </figure>
+        <div>
+            <h2 class="text-lg font-bold mb-3">Transportation Viewer</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--dotnet] text-sm flex-shrink-0"></span>
+                    <span class="truncate">ASP.NET (C#)</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--jquery] text-sm flex-shrink-0"></span>
+                    <span class="truncate">jQuery</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--debian] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Debian 11</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[logos--mono] text-sm flex-shrink-0" style="filter: brightness(0) invert(1);"></span>
+                    <span class="truncate">Mono</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--bootstrap] text-sm flex-shrink-0"></span>
+                    <span class="truncate">Bootstrap</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--microsoftsqlserver] text-sm flex-shrink-0"></span>
+                    <span class="truncate">SQL Server</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[carbon--tcp-ip-service] text-sm flex-shrink-0"></span>
+                    <span class="truncate">WebSockets</span>
+                </span>
+                <span class="btn btn-outline border-base-content/40 hover:border-base-content/40 focus:border-base-content/40 w-full justify-start gap-2 cursor-default text-xs">
+                    <span class="icon-[simple-icons--javascript] text-sm flex-shrink-0"></span>
+                    <span class="truncate">JavaScript</span>
+                </span>
+            </div>
+            <div class="prose prose-sm max-w-none">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <p class="leading-relaxed mb-8">
+                        While supporting the Transportation team, bus locations were tracked on Post‑it notes—an error‑prone, manual process. I adapted our <strong>Security Camera Viewer</strong> and <strong>Digital Signage platform</strong> to build a Transportation Viewer.
+                    </p>
+
+                    <p class="leading-relaxed mb-8">
+                        This web application runs on <strong>kiosks</strong> and maintains a WebSocket connection to our Debian/Mono server for live updates. It displays current bus routes, provides a real‑time clock, and offers fully customizable screens.
+                    </p>
+
+                    <p class="leading-relaxed">
+                        The tool replaced manual note‑tracking with <strong>real‑time route visibility</strong>, improved operational efficiency, and can be configured instantly to reflect changing schedules.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <dialog id="modal-cp_transport1" class="modal">
+        <div class="modal-box max-w-6xl bg-base-100 relative">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-20 bg-base-300/90 hover:bg-base-300">✕</button>
+            </form>
+            <img src="~/portfolio/cp_transportation.webp" class="w-full h-auto rounded-lg" alt="Transportation Viewer Interface 1" />
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+</div>
+
+
+
+@section Scripts {
+    <script src="~/js/portfolio.js"></script>
+
+}

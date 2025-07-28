@@ -1,0 +1,87 @@
+﻿@page
+@model thomasmack.dev.Pages.ContactModel
+@{
+}
+@section Subheader {
+        Contact Me
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-8 opacity-75">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-2">Get In Touch</h2>
+            <p class="text-base-content/60">I'd love to hear from you. Send me a message and I'll respond as soon as possible.</p>
+            <div class="alert alert-warning mt-4">
+                <span class="icon-[heroicons--exclamation-triangle] text-lg"></span>
+                <span>Contact form is temporarily disabled while under development.</span>
+            </div>
+        </div>
+
+        <form class="space-y-6">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium flex items-center gap-2">
+                        <span class="icon-[heroicons--user] text-lg"></span>
+                        Name
+                    </span>
+                </label>
+                <input type="text" name="Name" placeholder="Enter your full name" class="input input-bordered w-full bg-base-100 border-base-content/20 focus:border-info focus:outline-none" disabled />
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium flex items-center gap-2">
+                        <span class="icon-[heroicons--envelope] text-lg"></span>
+                        Email
+                    </span>
+                </label>
+                <input type="email" name="Email" placeholder="Enter your email address" class="input input-bordered w-full bg-base-100 border-base-content/20 focus:border-info focus:outline-none" disabled />
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium flex items-center gap-2">
+                        <span class="icon-[heroicons--envelope-open] text-lg"></span>
+                        Confirm Email
+                    </span>
+                </label>
+                <input type="email" name="EmailConfirm" placeholder="Confirm your email address" class="input input-bordered w-full bg-base-100 border-base-content/20 focus:border-info focus:outline-none" disabled />
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium flex items-center gap-2">
+                        <span class="icon-[heroicons--chat-bubble-left-right] text-lg"></span>
+                        Message
+                    </span>
+                </label>
+                <textarea name="Message" placeholder="Write your message here..." class="textarea textarea-bordered h-32 w-full bg-base-100 border-base-content/20 focus:border-info focus:outline-none resize-none" disabled></textarea>
+            </div>
+
+            <div class="form-control mt-8">
+                <button type="submit" class="btn btn-disabled btn-lg rounded-full px-8 !font-normal" disabled>
+                    <span class="icon-[heroicons--no-symbol] mr-2"></span>
+                    Form Disabled
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-8 text-center">
+        <p class="text-sm text-base-content/60 mb-4">Reach out directly instead</p>
+        <div class="flex justify-center space-x-6">
+            <a href="https://github.com/mackcoding" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-base-content/80 hover:text-info transition-colors">
+                <span class="icon-[fa-brands--github] text-xl"></span>
+                GitHub
+            </a>
+            <a href="https://linkedin.com/in/mackt" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-base-content/80 hover:text-info transition-colors">
+                <span class="icon-[fa-brands--linkedin] text-xl"></span>
+                LinkedIn
+            </a>
+            <a href="https://bsky.app/mackhax0r.bsky.social" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-base-content/80 hover:text-info transition-colors">
+                <span class="icon-[simple-icons--bluesky] text-xl"></span>
+                Bluesky
+            </a>
+        </div>
+    </div>
+</div>

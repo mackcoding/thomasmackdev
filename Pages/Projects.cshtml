@@ -1,0 +1,115 @@
+﻿@page
+@model thomasmack.dev.Pages.ProjectsModel
+@{
+}
+
+@section Subheader {
+        Current Projects
+}
+
+<div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[simple-icons--dotnet] text-xl"></span>
+                <a href="https://github.com/mackcoding/WhoisNET" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    WhoisNET
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <span class="badge badge-dash badge-success badge-sm">Active</span>
+        </div>
+        <p class="text-base-content/80">WhoisNET is designed as a fast, developer-friendly library for querying WHOIS data on domains and IPs, returning structured output via a custom parser. The project is paused pending a full rewrite that will add RDAP support for richer, standardized registration data.</p>
+    </div>
+
+
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[simple-icons--go] text-xl"></span>
+                <a href="https://github.com/mackcoding/vault-unsealer" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    Vault Unsealer
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <span class="badge badge-dash badge-success badge-sm">Active</span>
+        </div>
+        <p class="text-base-content/80">Vault Unsealer is a lightweight Go utility that automates the unsealing of Vault by fetching keys from Bitwarden. It runs as a Docker container—ideal for Kubernetes clusters—to unlock Vault instances on startup. A future release will provide this functionality natively as a Vault plugin.</p>
+    </div>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[streamline-pixel--ui-design-website] text-xl"></span>
+                <a href="https://github.com/mackcoding/thomasmackdev" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    thomasmack.dev
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <div class="flex gap-2">
+                <span class="badge badge-dash badge-success badge-sm">Active</span>
+                <span class="badge badge-dash badge-error badge-sm">Source not yet available</span>
+            </div>
+        </div>
+        <p class="text-base-content/80">A personal resume and portfolio site built with ASP.NET Razor Pages, TailwindCSS, DaisyUI, and HTMX, backed by PostgreSQL for dynamic content. Features responsive, mobile‑first design, modular Razor components, and SEO optimizations. Future improvements include GitHub Actions–powered deployments, CMS integration for easier updates, and performance tuning with caching and image optimization.</p>
+    </div>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[devicon-plain--bash] text-xl"></span>
+                <a href="https://gist.github.com/mackcoding/9bda3e3c29525636597eddd4fa1ae76c" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    Automatic Discord Status with dad joke
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <span class="badge badge-dash badge-success badge-sm">Active</span>
+        </div>
+        <p class="text-base-content/80">A simple Bash script that retrieves a random dad joke and updates your Discord status automatically. It demonstrates basic API usage and cron scheduling for personal automations. Future enhancements could include support for multiple joke sources and error handling.</p>
+    </div>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[ic--baseline-contact-phone] text-xl"></span>
+                <a href="https://github.com/mackcoding/phone-carrier-abuse-contacts" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    phone-carrier-abuse-contacts
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <span class="badge badge-dash badge-success badge-sm">Active</span>
+        </div>
+        <p class="text-base-content/80">This repository maintains an up-to-date README listing abuse-contact emails and forms for major phone carriers. It serves as a quick reference for security teams to report spam, fraud, and network abuse. Contributions and periodic reviews ensure the data stays current.</p>
+    </div>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[lucide--badge-alert] text-xl"></span>
+                <a href="https://github.com/mackcoding/panapptav1" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    PanapptaV1
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <span class="badge badge-dash badge-error badge-sm">Archived</span>
+        </div>
+        <p class="text-base-content/80">Early-stage tool for displaying work notifications via Panopto, now deprecated due to limited API integration. This version has been archived in favor of a more robust implementation. A complete rewrite is planned to leverage Panopto's REST API for reliable, secure pop-up notifications.</p>
+    </div>
+
+    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2">
+                <span class="icon-[lucide--badge-alert] text-xl"></span>
+                <a href="https://github.com/mackcoding/panapptav2" target="_blank" rel="noopener noreferrer" class="link link-hover font-bold text-lg">
+                    PanapptaV2
+                </a>
+                <span class="icon-[iconoir--open-new-window] text-sm opacity-60"></span>
+            </div>
+            <span class="badge badge-dash badge-error badge-sm">Archived</span>
+        </div>
+        <p class="text-base-content/80">Improved version of the Panopto notification tool, also now deprecated due to API limitations. Both V1 and V2 have been archived in favor of a complete rewrite that will provide better integration with Panopto's modern REST API infrastructure.</p>
+    </div>
+
+</div>

@@ -20,6 +20,7 @@ namespace thomasmack.dev
             );
 
             builder.Services.AddTransient<IEmailService, EmailService>();
+            builder.Services.AddMemoryCache();
 
             var app = builder.Build();
 

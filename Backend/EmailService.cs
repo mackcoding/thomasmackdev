@@ -11,13 +11,17 @@ namespace thomasmack.dev.Backend
 
         public async Task SendAsync(string from, string subject, string htmlBody)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(from, MailboxAddress.Parse(from).ToString()));
-            message.To.Add(MailboxAddress.Parse(_settings.Email));
-            message.Subject = subject;
+            if (string.IsNullOrWhiteSpace(from))
+                throw new ArgumentException("Sender address is required.", nameof(from));
 
-            var builder = new BodyBuilder { HtmlBody = htmlBody };
-            message.Body = builder.ToMessageBody();
+            var message = new MimeMessage();
+
+            message.From.Add(MailboxAddress.Parse(from));
+            message.To.Add(new MailboxAddress(_settings.SendTo, _settings.SendTo));
+
+            message.Subject = subject;
+            message.Body = new BodyBuilder { HtmlBody = htmlBody }
+                              .ToMessageBody();
 
             using var client = new SmtpClient();
             await client.ConnectAsync(_settings.Hostname, _settings.Port, _settings.UseSsl);

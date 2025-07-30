@@ -1,3 +1,5 @@
+using thomasmack.dev.Backend;
+
 namespace thomasmack.dev
 {
     public class Program
@@ -12,6 +14,12 @@ namespace thomasmack.dev
                 options.LowercaseQueryStrings = true;
             });
             builder.Services.AddRazorPages();
+
+            builder.Services.Configure<SmtpSettings>(
+                builder.Configuration.GetSection("SmtpSettings")
+            );
+
+            builder.Services.AddTransient<IEmailService, EmailService>();
 
             var app = builder.Build();
 
@@ -37,4 +45,6 @@ namespace thomasmack.dev
             app.Run();
         }
     }
+
+
 }

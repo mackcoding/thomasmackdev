@@ -20,4 +20,8 @@
     <Folder Include="wwwroot\portfolio\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.13.0" />
+  </ItemGroup>
+
 </Project>

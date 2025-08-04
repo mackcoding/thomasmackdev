@@ -2,8 +2,12 @@
 @model IndexModel
 
 @section Subheader {
-                        Web Resume
+    <div class="flex items-center gap-3">
+        <span class="icon-[mdi-light--home] text-3xl"></span>
+        <span class="font-semibold">Web Resume</span>
+    </div>
 }
+
 
 
 <main class="px-6 py-12">
@@ -11,7 +15,7 @@
         Hello, I'm <span class="text-info">Thomas Mack</span>
     </h1>
     <p class="mt-6 text-center text-lg text-base-content/60 max-w-3xl mx-auto">
-        I am a self-taught DevOps engineer with experience spanning tech support, platform administration, software development, and infrastructure automation. Worked across education, SaaS, and blockchain industries, focusing on Kubernetes, system integration, and automation using tools like Ansible, Helm, and GitOps workflows.
+        I am a DevOps Engineer with several years of experience in platform administration, software development, and infrastructure automation. Proficient in Kubernetes, Ansible, Helm, Infrastructure as Code, and CI/CD pipeline implementation.
     </p>
     <div class="mt-8 text-center">
         <a href="~/files/thomasmack_resume.pdf" download class="btn btn-info btn-lg rounded-full px-8 border border-info !font-normal">
@@ -31,11 +35,8 @@
             <a href="https://linkedin.com/in/mackt" target="_blank" rel="noopener noreferrer">
                 <span class="icon-[fa-brands--linkedin] text-2xl"></span>
             </a>
-            <a href="https://bsky.app/mackhax0r.bsky.social" target="_blank" rel="noopener noreferrer">
+            <a href="https://bsky.app/profile/mackhax0r.bsky.social" target="_blank" rel="noopener noreferrer">
                 <span class="icon-[simple-icons--bluesky] text-2xl"></span>
-            </a>
-            <a href="/contact" target="_blank" rel="noopener noreferrer">
-                <span class="icon-[streamline--send-email] text-2xl"></span>
             </a>
         </div>
     </div>
@@ -44,17 +45,9 @@
     </div>
     <h2 class="text-3xl font-semibold text-center">Technical Skills</h2>
     <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-2 mt-6">
+        <!-- Programming -->
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[uil--linux] mr-1"></span>Sidero Talos & Omni
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[fa-solid--server] mr-1"></span>Proxmox
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--docker] mr-1"></span>Docker
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--kubernetes] mr-1"></span>Kubernetes
+            <span class="icon-[simple-icons--csharp] mr-1"></span>C#
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[simple-icons--dotnet] mr-1"></span>.NET
@@ -74,57 +67,49 @@
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[simple-icons--html5] mr-1"></span>HTML/CSS/SCSS
         </div>
+
+
+
+        <!-- Frameworks -->
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--dotnet] mr-1"></span>ASP.NET
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--bootstrap] mr-1"></span>Bootstrap
+        </div>       <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[ix--blazor] mr-1"></span>MudBlazor
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--tailwindcss] mr-1"></span>TailwindCSS
+        </div>
+
+        <!-- Containerization -->
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--talos] mr-1"></span>Sidero Talos
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[file-icons--omnigraffle] mr-1"></span>Sidero Omni
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[fa-solid--server] mr-1"></span>Proxmox
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--docker] mr-1"></span>Docker
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--kubernetes] mr-1"></span>Kubernetes
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--helm] mr-1"></span>Helm
+        </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[simple-icons--flux] mr-1"></span>Flux
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[simple-icons--argo] mr-1"></span>ArgoCD
         </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--terraform] mr-1"></span>Terraform
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--ansible] mr-1"></span>Ansible
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--helm] mr-1"></span>Helm
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--git] mr-1"></span>Git
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--nginx] mr-1"></span>NGINX
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--apache] mr-1"></span>Apache
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--postgresql] mr-1"></span>PostgreSQL
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--mariadb] mr-1"></span>MariaDB/MySQL
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--microsoftsqlserver] mr-1"></span>Microsoft SQL Server
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--redis] mr-1"></span>Redis
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--prometheus] mr-1"></span>Prometheus
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[simple-icons--grafana] mr-1"></span>Grafana
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[iconoir--dns] mr-1"></span>PowerDNS
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[iconoir--dns] mr-1"></span>Microsoft DNS
-        </div>
-        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[fa-brands--google] mr-1"></span>Google Workspace
-        </div>
+
+        <!-- Cloud / IaC Tools -->
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[simple-icons--amazonaws] mr-1"></span>Route53
         </div>
@@ -138,10 +123,27 @@
             <span class="icon-[simple-icons--awslambda] mr-1"></span>Lambda
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[fa-solid--terminal] mr-1"></span>k9s
+            <span class="icon-[simple-icons--amazonaws] mr-1"></span>IAM
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[ic--sharp-groups-2] mr-1"></span>Active Directory
+            <span class="icon-[fa-brands--google] mr-1"></span>Google Workspace
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--terraform] mr-1"></span>Terraform
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--ansible] mr-1"></span>Ansible
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--git] mr-1"></span>Git
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[carbon--ibm-devops-control] mr-1"></span>CI/CD pipelines
+        </div>
+
+        <!-- Security Tools -->
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[streamline-sharp--safe-vault] mr-1"></span>Vault
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[fa-solid--lock] mr-1"></span>Authentik
@@ -150,7 +152,7 @@
             <span class="icon-[streamline--bug-antivirus-debugging] mr-1"></span>Securly
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[si--dashboard-vert-fill] mr-1"></span>IncidentIQ
+            <span class="icon-[si--shield-duotone] mr-1"></span>GoGuardian
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
             <span class="icon-[fa-solid--graduation-cap] mr-1"></span>Clever
@@ -159,9 +161,62 @@
             <span class="icon-[healthicons--i-groups-perspective-crowd] mr-1"></span>ClassLink
         </div>
         <div class="badge bg-base-200 border border-base-content/20 badge-sm">
-            <span class="icon-[si--shield-duotone] mr-1"></span>GoGuardian
+            <span class="icon-[simple-icons--tailscale] mr-1"></span>Tailscale
         </div>
 
+        <!-- Systems -->
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--linux] mr-1"></span>Linux (Ubuntu/Debian)
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[fa-solid--server] mr-1"></span>Proxmox
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--vmware] mr-1"></span>VMware ESXi
+        </div>
+
+        <!-- Hosting & Observability -->
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--nginx] mr-1"></span>NGINX
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--apache] mr-1"></span>Apache
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[mdi--server] mr-1"></span>IIS
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[iconoir--dns] mr-1"></span>PowerDNS
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[iconoir--dns] mr-1"></span>Microsoft DNS
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--prometheus] mr-1"></span>Prometheus
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--grafana] mr-1"></span>Grafana
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[fa-solid--terminal] mr-1"></span>k9s
+        </div>
+
+        <!-- Tools -->
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--visualstudio] mr-1"></span>Visual Studio 2022
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[file-icons--vscode] mr-1"></span>VS Code
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[openmoji--code-editor] mr-1"></span>Zed Editor
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[si--dashboard-vert-fill] mr-1"></span>IncidentIQ
+        </div>
+        <div class="badge bg-base-200 border border-base-content/20 badge-sm">
+            <span class="icon-[simple-icons--jira] mr-1"></span>Jira
+        </div>
 
     </div>
     <div class="py-[60px]">
@@ -173,105 +228,108 @@
 
 
     <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-
         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
             <div class="flex justify-between items-center mb-1">
-                <div class="font-bold text-lg">Crypto Company</div>
-                <span class="badge badge-dash badge-info badge-sm">DevOps Engineer</span>
+                <div class="font-bold text-lg">ECi Solutions</div>
+                <span class="badge badge-dash badge-info badge-sm">Programmer</span>
             </div>
             <div class="mb-4">
-                <span class="badge badge-dash badge-error badge-sm">May 2024 – June 2025</span>
+                <span class="badge badge-dash badge-error badge-sm">September 2023 – Present</span>
             </div>
-            <p class="mb-2">Operated and automated deployments across 50+ bare‑metal servers and Talos‑based Kubernetes clusters using Ansible and Helm, supporting blockchain networks and contributing to open‑source infrastructure projects.</p>
+            <p class="mb-2">Engineered a high-performance, multithreaded C# .NET console application to automate end-to-end Jira data migrations across isolated instances into a unified PostgreSQL platform, leveraging asynchronous programming and Git version control.</p>
             <ul class="list-disc ml-6 space-y-1">
-                <li>Automated deployments across SEI, NEAR, Aptos, Avalanche subnets, MayaChain, and THORChain</li>
-                <li>Managed 50+ bare‑metal servers in a self‑hosted infrastructure</li>
-                <li>Built Kubernetes clusters with Sidero Talos Linux and Sidero Omni</li>
-                <li>Provisioned containerized apps on Kubernetes and Proxmox via Ansible, Helm, CI pipelines</li>
-                <li>Executed manual testnet setups to evaluate blockchain node architecture</li>
-                <li>Authored Ansible roles to scale and manage validator nodes</li>
-                <li>Collaborated with validator operators via Discord and Slack</li>
-                <li>Contributed to open‑source Ansible roles, Helm charts, and Go code</li>
-                <li>Debugged networking, routing, load‑balancing, and infra issues end‑to‑end</li>
+                <li>Containerized PostgreSQL in Docker to support migration workflows and simplify environment provisioning</li>
+                <li>Authored comprehensive documentation to streamline installation, configuration, and onboarding of the migration tool</li>
+                <li>Utilized GitHub Issues to manage development tasks, track bug reports, and coordinate stakeholder feedback and feature requests</li>
+                <li>Delivered technical support to business units, troubleshooting migration-related issues and ensuring seamless operations</li>
             </ul>
         </div>
 
         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
             <div class="flex justify-between items-center mb-1">
-                <div class="font-bold text-lg">Software Solutions Company</div>
-                <span class="badge badge-dash badge-info badge-sm">Software Developer</span>
+                <div class="font-bold text-lg">Flipside</div>
+                <span class="badge badge-dash badge-info badge-sm">DevOps Engineer</span>
             </div>
             <div class="mb-4">
-                <span class="badge badge-dash badge-error badge-sm">Sep t 2023 – Present</span>
+                <span class="badge badge-dash badge-error badge-sm">May 2024 – Jun 2025</span>
             </div>
-            <p class="mb-2">Engineered a high‑performance, multi‑threaded C# tool to automate migration of 50+ Jira instances, enabling an Agile transformation within 90 days.</p>
+            <p class="mb-2">Automated Infrastructure as Code deployments for bare-metal servers and Talos-based Kubernetes clusters using Ansible, Helm, and Docker containers, supporting blockchain network operations and contributing to open-source infrastructure projects.</p>
             <ul class="list-disc ml-6 space-y-1">
-                <li>Built async C# console app with PostgreSQL backend for Jira data migration</li>
-                <li>Migrated 50+ Jira projects end‑to‑end with zero/minimal downtime</li>
-                <li>Authored user‑focused docs for adoption, usage, and maintenance</li>
-                <li>Partnered with stakeholders to define requirements and integrate feedback</li>
-                <li>Provided ongoing tech support, boosting team migration proficiency</li>
+                <li>Automated Infrastructure as Code (IaC) deployment workflows for SEI, NEAR, Aptos, Avalanche subnets, MayaChain, and THORChain blockchain nodes using Ansible, Helm, Docker, Terraform modules, and Git, integrating CI/CD pipelines for release orchestration</li>
+                <li>Provisioned and maintained self-hosted bare-metal Linux servers via Ansible playbooks and Terraform modules, automating configuration management and ensuring high availability</li>
+                <li>Designed and deployed Kubernetes clusters with Sidero Talos Linux and Omni, standardizing provisioning, enforcing secure configurations, and enhancing reliability</li>
+                <li>Orchestrated Docker container deployments on Kubernetes and Proxmox VE clusters using Ansible, Helm, and Git-based CI/CD pipelines to streamline releases</li>
+                <li>Conducted manual testnet deployments to evaluate blockchain node performance, reliability, and architecture, guiding infrastructure automation improvements</li>
+                <li>Developed reusable Ansible playbooks and Terraform modules to provision, manage, and scale validator nodes, improving deployment consistency</li>
+                <li>Leveraged Prometheus, Grafana, and Loki for monitoring, alerting, and centralized log aggregation; utilized Vault for secure secret management across environments and pipelines</li>
+                <li>Collaborated with validator operators and blockchain teams via Slack and Discord to troubleshoot infrastructure issues, coordinate incident responses, and share best practices</li>
+                <li>Contributed fixes and enhancements to open-source Ansible roles, Helm charts, and Go modules via Git, boosting IaC reliability and community adoption</li>
+                <li>Troubleshooting networking, infrastructure, and application-layer issues - including routing and load balancing - to maintain high availability and performance</li>
             </ul>
         </div>
 
         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
             <div class="flex justify-between items-center mb-1">
-                <div class="font-bold text-lg">Healthcare SaaS Company</div>
-                <span class="badge badge-dash badge-info badge-sm">DevOps Engineer</span>
+                <div class="font-bold text-lg">HomeHero</div>
+                <span class="badge badge-dash badge-info badge-sm">DevOps Engineer</span>
             </div>
             <div class="mb-4">
-                <span class="badge badge-dash badge-error badge-sm">Nov 2021 – Dec 2022</span>
+                <span class="badge badge-dash badge-error badge-sm">November 2021 – December 2022</span>
             </div>
-            <p class="mb-2">SaaS infrastructure engineer focused on HIPAA‑compliant AWS architectures, encrypted backups, security hardening, and high‑availability.</p>
+            <p class="mb-2">SaaS infrastructure engineer specializing in designing and maintaining five-nines availability, HIPAA-compliant AWS architectures with expertise in automated encrypted backups, security hardening, and cost-efficient, high-availability containerized deployments.</p>
             <ul class="list-disc ml-6 space-y-1">
-                <li>Designed five‑nines HIPAA‑compliant infra on AWS ECS, CloudWatch, RabbitMQ, PostgreSQL, IAM</li>
-                <li>Built custom automated, encrypted backup solution</li>
-                <li>Automated logging, storage, backup, and security hardening</li>
-                <li>Researched and implemented AWS cost‑saving measures</li>
-                <li>Delivered ad‑hoc support to the dev team</li>
+                <li>Architected and maintained five-nines availability, HIPAA-compliant SaaS infrastructure on AWS using ECS, CloudWatch, RabbitMQ, PostgreSQL, and IAM within containerized environments</li>
+                <li>Implemented automated, encrypted backup solutions in Go to ensure secure data retention and regulatory compliance</li>
+                <li>Automated logging, storage management, and security hardening across development, staging, and production environments</li>
+                <li>Researched and implemented cost-optimization strategies for AWS resource usage, reducing operational expenses</li>
+                <li>Initiated Prometheus and Grafana implementation for infrastructure monitoring and alerting</li>
+                <li>Provided responsive technical support to development teams, diagnosing and resolving infrastructure, performance, and security issues</li>
             </ul>
         </div>
 
         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
             <div class="flex justify-between items-center mb-1">
-                <div class="font-bold text-lg">School District</div>
-                <span class="badge badge-dash badge-info badge-sm">Programmer / System Administrator</span>
+                <div class="font-bold text-lg">Red Clay School District</div>
+                <span class="badge badge-dash badge-info badge-sm">IT System Engineer</span>
             </div>
             <div class="mb-4">
-                <span class="badge badge-dash badge-error badge-sm">Aug 2015 – Nov 2021</span>
+                <span class="badge badge-dash badge-error badge-sm">August 2015 – November 2021</span>
             </div>
-            <p class="mb-2">Implemented code‑driven automation for district IT operations, improving security, integration, and consistency.</p>
+            <p class="mb-2">Implemented code-driven solutions to support secure, efficient IT operations across the district, focusing on automation, integration, system consistency, and SaaS application management.</p>
             <ul class="list-disc ml-6 space-y-1">
-                <li>Developed tools to reduce costs and streamline operations</li>
-                <li>Built a real‑time pandemic monitoring dashboard</li>
-                <li>Engineered ASP.NET badge system for secure ID management</li>
-                <li>Created apps for digital signage and bus route logistics</li>
-                <li>Standardized Google Workspace and AD OUs for simplified admin</li>
-                <li>Automated user/device cleanup, SSO sync, and data validation</li>
-                <li>Provided level‑2/3 support for networking, servers, and apps</li>
+                <li>Researched district requirements and developed custom C# and ASP.NET tools to streamline operations and reduce administrative costs</li>
+                <li>Developed a pandemic monitoring application to track real-time student and staff absenteeism, enhancing district health oversight and safety protocols</li>
+                <li>Engineered an ASP.NET badge management system to automate ID issuance and lifecycle management, improving physical security and cutting manual effort</li>
+                <li>Built ASP.NET applications for digital signage and bus route management, optimizing communication workflows and transportation logistics</li>
+                <li>Standardized Google Workspace and Active Directory organizational units (OUs) for consistent policy enforcement and simplified user administration</li>
+                <li>Deployed and managed SaaS applications, including single sign-on (SSO) and student software platforms, to deliver secure, unified access</li>
+                <li>Created a teacher-facing control panel to automate routine administrative tasks, reducing Google Workspace training time and support tickets</li>
+                <li>Automated environment management with custom scripts for user/device cleanup, SSO synchronization, and proactive data validation</li>
+                <li>Provided technical support and escalated issue resolution for network, server, and application incidents, ensuring high system availability</li>
             </ul>
         </div>
 
         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
             <div class="flex justify-between items-center mb-1">
-                <div class="font-bold text-lg">Webhosting Company</div>
-                <span class="badge badge-dash badge-info badge-sm">Platform Administrator</span>
+                <div class="font-bold text-lg">HostMySite</div>
+                <span class="badge badge-dash badge-info badge-sm">Platform Administrator</span>
             </div>
             <div class="mb-4">
-                <span class="badge badge-dash badge-error badge-sm">Apr 2012 – Feb 2015</span>
+                <span class="badge badge-dash badge-error badge-sm">April 2012 – Feb 2015</span>
             </div>
-            <p class="mb-2">Progressed from support rep to platform admin, leading migrations, automations, and VIP support for high availability.</p>
+            <p class="mb-2">Promoted from Technical Support Representative to Platform Administrator, orchestrated migration of 600+ bare-metal servers to VMware ESXi, led VIP incident management, and optimized shared hosting platform reliability and scalability.</p>
             <ul class="list-disc ml-6 space-y-1">
-                <li>Migrated 600+ bare‑metal servers to VMware virtual clusters</li>
-                <li>Administered 600+ Linux/Windows servers for uptime & capacity</li>
-                <li>Led on‑call rotations and after‑hours VIP escalations</li>
-                <li>Performed root‑cause analysis for performance & software issues</li>
-                <li>Guided teams through legacy migrations and admin projects</li>
-                <li>Handled late‑hour VIP support calls to maintain SLAs</li>
+                <li>Managed shared hosting support via phone, chat, and email using a ticketing system, resolving Tier 1 and Tier 2 incidents</li>
+                <li>Migrated 600+ bare-metal servers to VMware ESXi virtual environments, enhancing scalability and reducing hardware dependency</li>
+                <li>Administered a hybrid farm of 600+ Linux and Windows servers, overseeing performance monitoring, capacity planning, and maintenance</li>
+                <li>Led weekly on-call rotations and after-hours VIP escalations, directing incident response and maintaining SLA compliance</li>
+                <li>Conducted root-cause analysis for server performance and software issues, driving reliability improvements</li>
+                <li>Orchestrated legacy system migrations and platform upgrades, streamlining workflows and boosting operational efficiency</li>
             </ul>
         </div>
 
     </div>
+
 
 
 

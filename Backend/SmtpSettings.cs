@@ -10,5 +10,8 @@
         public required string Name { get; set; }
         public required string Email { get; set; }
         public required string SendTo { get; set; }
+
+        public required string CaptchaSiteKey { get; set; }
+        public required string CaptchaSiteSecret { get; set; }
     }
 }

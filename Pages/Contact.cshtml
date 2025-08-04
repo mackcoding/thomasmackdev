@@ -2,7 +2,14 @@
 @model thomasmack.dev.Pages.ContactModel
 
 @section Subheader {
-        Contact Me
+    <div class="flex items-center gap-3">
+        <span class="icon-[streamline--send-email] text-3xl"></span>
+        <span class="font-semibold">Contact Me</span>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 }
 
 @if ((string?)TempData["Status"] == "sent")
@@ -65,6 +72,11 @@ else
                     <span asp-validation-for="Req.Body" class="text-sm text-red-600"></span>
                 </div>
 
+                <div class="form-control">
+                    <div class="cf-turnstile" data-sitekey="@Model.SiteKey"></div>
+                    <span asp-validation-for="TurnstileToken" class="text-sm text-red-600"></span>
+                </div>
+
                 <div class="form-control mt-8">
                     <button type="submit" class="btn btn-lg rounded-full px-8 !font-normal">
                         <span class="icon-[heroicons--paper-airplane] mr-2"></span>
@@ -85,7 +97,7 @@ else
                     <span class="icon-[fa-brands--linkedin] text-xl"></span>
                     LinkedIn
                 </a>
-                <a href="https://bsky.app/mackhax0r.bsky.social" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-base-content/80 hover:text-info transition-colors">
+                <a href="https://bsky.app/profile/mackhax0r.bsky.social" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-base-content/80 hover:text-info transition-colors">
                     <span class="icon-[simple-icons--bluesky] text-xl"></span>
                     Bluesky
                 </a>

@@ -1,20 +1,28 @@
-﻿// Pages/Contact.cshtml.cs
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using thomasmack.dev.Backend;
 using thomasmack.dev.Models;
 
 namespace thomasmack.dev.Pages
 {
-    public class ContactModel(IEmailService emails, IMemoryCache cache, ILogger<ContactModel> log) : PageModel
+    public class ContactModel(IEmailService emails,
+        IMemoryCache cache,
+        ILogger<ContactModel> log,
+        IOptions<SmtpSettings> _settings) : PageModel
     {
         [BindProperty]
         public required EmailRequest Req { get; set; }
 
-        public void OnGet() { }
+        [BindProperty(Name = "cf-turnstile-response")]
+        public string? TurnstileToken { get; set; }
+
+
+        public string SiteKey => _settings.Value.CaptchaSiteKey;
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -24,6 +32,14 @@ namespace thomasmack.dev.Pages
             var remoteAddr = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             var userAgent = Request.Headers.UserAgent;
             var key = $"{remoteAddr}";
+
+            if (!await VerifyTurnstile())
+            {
+                ModelState.AddModelError("Captcha", "Please complete the CAPTCHA correctly.");
+
+                log.LogError("Invalid captcha {RemoteAddr} - {UserAgent}", remoteAddr, userAgent);
+                return Page();
+            }
 
             if (string.IsNullOrEmpty(Req.Body)
              || string.IsNullOrEmpty(Req.Name)
@@ -50,51 +66,49 @@ namespace thomasmack.dev.Pages
             }
 
             Req.Body = $@"
-                {Req.Body}</p>{Environment.NewLine}</hr>
+                {Req.Body}{Environment.NewLine}
                 ---Form Details---{Environment.NewLine}
-                IP Address: {remoteAddr}</p>{Environment.NewLine}
-                UserAgent: {userAgent}</p>{Environment.NewLine}
+                IP Address: {remoteAddr}{Environment.NewLine}
+                UserAgent: {userAgent}{Environment.NewLine}
                 Sent: {DateTime.Now}{Environment.NewLine}
             ";
 
-            await emails.SendAsync(Req.From, Req.Subject, Req.Body);
-            cache.Set(key, true, TimeSpan.FromHours(24));
+            await emails.SendAsync(Req.Name, Req.From, Req.Subject, Req.Body);
+            cache.Set(key, true, TimeSpan.FromHours(6));
 
             TempData["Status"] = "sent";
             return RedirectToPage();
         }
 
-
-
-        /*
-        public async Task<IActionResult> OnPostAsyncOld()
+        private async Task<bool> VerifyTurnstile()
         {
-            if (!ModelState.IsValid)
-                return Page();
+            var secret = _settings.Value.CaptchaSiteSecret;
 
-            var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-            var key = $"{CACHE_PREFIX}{ip}:{Req.From.ToLowerInvariant()}";
+            using var client = new HttpClient();
 
-            if (cache.TryGetValue<bool>(key, out _))
-            {
-                ModelState.AddModelError(string.Empty, "You've already sent a message in the past 24 hours. Please try again later.");
-                return Page();
-            }
+            var form = new FormUrlEncodedContent(
+            [
+                new KeyValuePair<string, string>("secret", secret),
+                new KeyValuePair<string, string>("response", TurnstileToken ?? "")
+            
+            ]);
 
-            if (Req.Body.Length < 200)
-            {
-                ModelState.AddModelError(nameof(Req.Body), "Please provide a more detailed message (at least 200 characters).");
-                return Page();
-            }
+            var response = await client.PostAsync(
+                "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+                form);
 
-            var safeBody = HtmlEncoder.Default.Encode(Req.Body);
-            var metadata = $"\n\n---\nIP: {ip}\nUA: {Request.Headers["User-Agent"]}\nSent: {DateTime.UtcNow:yyyy-MM-dd HH:mm} UTC";
-            var fullBody = safeBody + metadata;
+            if (!response.IsSuccessStatusCode)
+                return false;
 
-            await emails.SendAsync(Req.From, Req.Subject, fullBody);
-            cache.Set(key, true, WINDOW);
-            TempData["Status"] = "sent";
-            return RedirectToPage();
-        }*/
+            using var doc = JsonDocument.Parse(
+                await response.Content.ReadAsStringAsync()
+            );
+
+            return doc.RootElement
+                .GetProperty("success")
+                .GetBoolean();
+
+        }
+
     }
 }

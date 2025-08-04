@@ -1,0 +1,205 @@
+﻿@page
+@model thomasmack.dev.Pages.TestModel
+@{
+}
+
+@section Subheader {
+    Blog: Setting up Tailscale for Omni Infrastructure
+}
+
+<div class="mt-6 max-w-none mx-auto px-4" style="width: 80%;">
+    <article class="prose prose-lg max-w-none">
+        <div class="not-prose mb-12">
+            <div class="flex flex-wrap gap-2 mb-6">
+                <span class="badge badge-primary badge-sm">Omni Deployment</span>
+                <span class="badge badge-info badge-sm">Multi-Part Guide</span>
+                <span class="badge badge-secondary badge-sm">Tailscale</span>
+                <span class="badge badge-accent badge-sm">Part 1</span>
+            </div>
+            <h1 class="text-4xl font-bold mb-6 leading-tight">Setting up Tailscale for Omni Infrastructure</h1>
+            <div class="flex items-center gap-6 text-sm text-base-content/60 mb-8">
+                <div class="flex items-center gap-2">
+                    <span class="icon-[iconoir--calendar] text-base"></span>
+                    <time datetime="2025-01-20">January 20, 2025</time>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="icon-[iconoir--clock] text-base"></span>
+                    <span>15 min read</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info mb-12 p-6">
+            <span class="icon-[iconoir--info-circle] text-2xl"></span>
+            <div>
+                <h3 class="font-bold mb-2">Part 1 of the Omni Deployment Series</h3>
+                <div>This guide is the first part of a comprehensive series on deploying Sidero Omni. We'll establish secure networking before moving on to container deployment and cluster management.</div>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Overview</h2>
+                <div class="space-y-4">
+                    <p>Before deploying Sidero Omni and managing Talos clusters, we need to establish secure networking between our infrastructure components. Tailscale provides a zero-config VPN solution that creates encrypted point-to-point connections between your devices and servers.</p>
+
+                    <p>In this guide, we'll configure Tailscale to connect:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>Your local development machine</li>
+                        <li>Linode server hosting Omni</li>
+                        <li>Proxmox nodes for Talos clusters</li>
+                        <li>Any additional infrastructure components</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Prerequisites</h2>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Tailscale account (free tier available)</li>
+                    <li>Linode server running Debian 12</li>
+                    <li>Proxmox VE installation</li>
+                    <li>Local machine with Tailscale client</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Step 1: Create Tailscale Account and Auth Key</h2>
+                <p class="mb-6">First, create a Tailscale account and generate an authentication key for automated device registration.</p>
+
+                <div class="relative">
+                    <div class="mockup-code bg-base-300">
+                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                            Terminal
+                        </div>
+                        <div class="p-4">
+                            <pre data-prefix="$" class="language-bash"><code>curl -fsSL https://tailscale.com/install.sh | sh</code></pre>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code="curl -fsSL https://tailscale.com/install.sh | sh">
+                        <span class="icon-[iconoir--copy] text-sm"></span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Step 2: Install Tailscale on Linode Server</h2>
+                <p class="mb-6">Connect to your Linode server and install Tailscale:</p>
+
+                <div class="relative">
+                    <div class="mockup-code bg-base-300 mb-8">
+                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                            Terminal
+                        </div>
+                        <div class="p-4">
+                            <pre data-prefix="$" class="language-bash"><code>sudo apt update && sudo apt upgrade -y</code></pre>
+                            <pre data-prefix="$" class="language-bash"><code>curl -fsSL https://tailscale.com/install.sh | sh</code></pre>
+                            <pre data-prefix="$" class="language-bash"><code>sudo tailscale up --authkey=YOUR_AUTH_KEY</code></pre>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code="sudo apt update && sudo apt upgrade -y&#10;curl -fsSL https://tailscale.com/install.sh | sh&#10;sudo tailscale up --authkey=YOUR_AUTH_KEY">
+                        <span class="icon-[iconoir--copy] text-sm"></span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Step 3: Configure Proxmox Nodes</h2>
+                <p class="mb-6">Install Tailscale on each Proxmox node to enable secure communication with Omni:</p>
+
+                <div class="relative">
+                    <div class="mockup-code bg-base-300 mb-8">
+                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                            Terminal
+                        </div>
+                        <div class="p-4">
+                            <pre data-prefix="$" class="language-bash"><code>curl -fsSL https://tailscale.com/install.sh | sh</code></pre>
+                            <pre data-prefix="$" class="language-bash"><code>tailscale up --authkey=YOUR_AUTH_KEY</code></pre>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code="curl -fsSL https://tailscale.com/install.sh | sh&#10;tailscale up --authkey=YOUR_AUTH_KEY">
+                        <span class="icon-[iconoir--copy] text-sm"></span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Step 4: Verify Network Connectivity</h2>
+                <p class="mb-6">Test connectivity between all nodes in your Tailscale network:</p>
+
+                <div class="relative">
+                    <div class="mockup-code bg-base-300 mb-8">
+                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                            Terminal
+                        </div>
+                        <div class="p-4">
+                            <pre data-prefix="$" class="language-bash"><code>tailscale status</code></pre>
+                            <pre data-prefix="$" class="language-bash"><code>ping 100.x.x.x</code></pre>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code="tailscale status&#10;ping 100.x.x.x">
+                        <span class="icon-[iconoir--copy] text-sm"></span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Step 5: Configure Firewall Rules</h2>
+                <p class="mb-6">Ensure proper firewall configuration for Omni and Talos communication:</p>
+
+                <div class="relative">
+                    <div class="mockup-code bg-base-300 mb-8">
+                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                            Terminal
+                        </div>
+                        <div class="p-4">
+                            <pre data-prefix="$" class="language-bash"><code>sudo ufw allow in on tailscale0</code></pre>
+                            <pre data-prefix="$" class="language-bash"><code>sudo ufw allow 8080/tcp</code></pre>
+                            <pre data-prefix="$" class="language-bash"><code>sudo ufw enable</code></pre>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code="sudo ufw allow in on tailscale0&#10;sudo ufw allow 8080/tcp&#10;sudo ufw enable">
+                        <span class="icon-[iconoir--copy] text-sm"></span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6">Next Steps</h2>
+                <p>With Tailscale configured, your infrastructure components can now communicate securely. In the next part of this series, we'll deploy Sidero Omni using Podman containers on your Linode server.</p>
+            </section>
+        </div>
+
+        <div class="not-prose mt-16">
+            <div class="card bg-base-200 p-8">
+                <div class="card-body">
+                    <h3 class="card-title text-xl mb-4">What's Next?</h3>
+                    <p class="text-base-content/80 mb-6">Continue with Part 2 of the Omni Deployment series where we'll deploy the Omni container using Podman and Ansible automation.</p>
+                    <div class="card-actions">
+                        <span class="btn btn-disabled btn-sm">
+                            Part 2: Deploying Self-Hosted Omni on Linode
+                            <span class="icon-[iconoir--clock] text-sm"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="not-prose mt-12">
+            <div class="divider font-semibold">Series Navigation</div>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <span class="badge badge-success badge-lg">Part 1: Tailscale Setup (Current)</span>
+                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 2: Omni Deployment</a>
+                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 3: Control Planes</a>
+                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 4: Worker Nodes</a>
+                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 5: Monitoring & Security</a>
+            </div>
+        </div>
+    </article>
+</div>
+
+<script src="~/js/blogpost.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>

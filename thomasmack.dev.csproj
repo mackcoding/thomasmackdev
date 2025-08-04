@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="SqlScripts\" />
     <Folder Include="Web\scss\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\files\" />
@@ -22,6 +23,10 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MackTools\MackTools.csproj" />
   </ItemGroup>
 
 </Project>

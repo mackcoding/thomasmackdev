@@ -1,0 +1,363 @@
+﻿@page
+@model thomasmack.dev.Pages.BlogModel
+@{
+}
+@section Subheader {
+    <div class="flex items-center gap-3">
+        <span class="icon-[fluent-mdl2--blog] text-3xl"></span>
+        <span class="font-semibold">Blog</span>
+    </div>
+}
+
+<div class="mt-6 max-w-none mx-auto px-4" >
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-info badge-sm">Prerequisites</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="/blog/1/omni-series-prerequisites" class="link link-hover">
+                            Requirements and Prepwork
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Define prerequisites including Talos, Omni, Linode account, Proxmox, Tailscale, and Podman. Explain the architecture and tooling decisions for distributed Kubernetes.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-08-04">August 4, 2025</time>
+                    </div>
+                    <span class="btn btn-sm">
+                        Read More
+                        <span class="icon-[iconoir--arrow-right] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-accent badge-sm">Linode</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Provisioning the Linode VPS for Omni
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Create and harden the Linode VPS infrastructure. Prepare networking, firewall configurations, and SSH access for secure Omni deployment.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-08-15">August 15, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-secondary badge-sm">Tailscale</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Installing and Configuring Tailscale
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Set up Tailscale networking on the VPS and Proxmox nodes. Configure subnet routing and secure mesh networking for the infrastructure.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-08-25">August 25, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-warning badge-sm">Podman</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Bootstrapping Omni with Podman on the VPS
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Deploy Omni using Podman containers with Ansible automation. Include TLS bootstrap configuration and secure service setup.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-09-04">September 4, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-success badge-sm">Talos</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Preparing Talos Configs for Remote Deployment
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Use talosctl and Omni to generate Talos machine configurations. Tailor configs for control plane and worker node separation.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-09-14">September 14, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-accent badge-sm">Proxmox</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Deploying Talos Control Plane Nodes with Omni
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Deploy control plane nodes on Proxmox via ISO or PXE boot. Use Ansible to automate bootstrapping and provisioning processes.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-09-24">September 24, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-info badge-sm">Kubernetes</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Scaling with Talos Worker Nodes
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Add worker nodes to the cluster using Talosctl and Omni orchestration. Verify cluster health and connectivity with kubectl.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-10-04">October 4, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-primary badge-sm">Omni Series</span>
+                        <span class="badge badge-secondary badge-sm">Management</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Managing the Cluster Remotely with Omni
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Configure kubeconfig, Talos endpoints, and secure remote access over Tailscale. Cover troubleshooting and cluster management.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-10-14">October 14, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-success badge-sm">Platform Services</span>
+                        <span class="badge badge-warning badge-sm">GitOps</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Deploying ArgoCD with GitOps
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Set up ArgoCD for continuous deployment and GitOps workflows. Configure repositories, applications, and automated synchronization.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-10-24">October 24, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-success badge-sm">Platform Services</span>
+                        <span class="badge badge-accent badge-sm">Storage</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Choosing and Deploying a Storage Backend
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Compare and deploy storage solutions like Longhorn or Ceph. Configure persistent volumes and storage classes for applications.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-11-03">November 3, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-success badge-sm">Platform Services</span>
+                        <span class="badge badge-info badge-sm">Ingress</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Ingress Controller Setup and TLS Management
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Deploy and configure ingress controllers with automated TLS certificate management. Set up routing and load balancing for services.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-11-13">November 13, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+            <div class="flex flex-col h-full">
+                <div class="flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-success badge-sm">Platform Services</span>
+                        <span class="badge badge-secondary badge-sm">Monitoring</span>
+                    </div>
+                    <h2 class="card-title text-xl mb-3">
+                        <a href="#" class="link link-hover">
+                            Monitoring Stack with Prometheus and Grafana
+                        </a>
+                    </h2>
+                    <p class="text-base-content/80 text-sm mb-4">
+                        Deploy comprehensive monitoring with Prometheus and Grafana. Configure metrics collection, alerting, and visualization dashboards.
+                    </p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <div class="flex items-center gap-2 text-xs text-base-content/60">
+                        <span class="icon-[iconoir--calendar] text-sm"></span>
+                        <time datetime="2025-11-23">November 23, 2025</time>
+                    </div>
+                    <span class="btn btn-disabled btn-sm">
+                        Coming Soon
+                        <span class="icon-[iconoir--clock] text-sm"></span>
+                    </span>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>

@@ -1,51 +1,59 @@
-using thomasmack.dev.Backend;
+    using Microsoft.AspNetCore.HttpOverrides;
+    using thomasmack.dev.Backend;
 
-namespace thomasmack.dev
-{
-    public class Program
+    namespace thomasmack.dev
     {
-        public static void Main(string[] args)
+        public class Program
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddRouting(options =>
+            public static void Main(string[] args)
             {
-                options.LowercaseUrls = true;
-                options.LowercaseQueryStrings = true;
-            });
-            builder.Services.AddRazorPages();
+                var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.Configure<SmtpSettings>(
-                builder.Configuration.GetSection("SmtpSettings")
-            );
+                builder.Services.AddRouting(options =>
+                {
+                    options.LowercaseUrls = true;
+                    options.LowercaseQueryStrings = true;
+                });
+                builder.Services.AddRazorPages();
 
-            builder.Services.AddTransient<IEmailService, EmailService>();
-            builder.Services.AddMemoryCache();
+                builder.Services.Configure<SmtpSettings>(
+                    builder.Configuration.GetSection("SmtpSettings")
+                );
 
-            var app = builder.Build();
+                builder.Services.AddTransient<IEmailService, EmailService>();
+                builder.Services.AddMemoryCache();
 
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
+                builder.Services.Configure<ForwardedHeadersOptions>(options =>
+                {
+                    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                    options.KnownNetworks.Clear();
+                    options.KnownProxies.Clear();
+                });
+
+                var app = builder.Build();
+
+                app.UseForwardedHeaders();
+
+                if (!app.Environment.IsDevelopment())
+                {
+                    app.UseExceptionHandler("/Error");
+                    app.UseHsts();
+                }
+
+                app.UseHttpsRedirection();
+                app.UseRouting();
+                app.UseStatusCodePagesWithReExecute("/Error");
+                app.UseAuthorization();
+
+                app.MapGet("/index", () => Results.Redirect("/", permanent: true));
+
+                app.MapStaticAssets();
+                app.MapRazorPages()
+                   .WithStaticAssets();
+
+                app.MapFallbackToPage("/Error");
+
+                app.Run();
             }
-
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseStatusCodePagesWithReExecute("/Error");
-            app.UseAuthorization();
-
-            app.MapGet("/index", () => Results.Redirect("/", permanent: true));
-
-            app.MapStaticAssets();
-            app.MapRazorPages()
-               .WithStaticAssets();
-
-            app.MapFallbackToPage("/Error");
-
-            app.Run();
         }
     }
-
-
-}

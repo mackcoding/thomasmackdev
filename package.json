@@ -3,13 +3,24 @@
     "daisyui": "^5.0.46"
   },
   "devDependencies": {
+    "@iconify-json/bytesize": "^1.2.2",
+    "@iconify-json/hugeicons": "^1.2.7",
+    "@iconify-json/iconoir": "^1.2.8",
+    "@iconify-json/ix": "^1.2.7",
     "@iconify-json/mdi-light": "^1.2.2",
-    "@iconify/json": "^2.2.363",
+    "@iconify-json/si": "^1.2.4",
+    "@iconify-json/simple-icons": "^1.2.47",
+    "@iconify-json/streamline": "^1.2.5",
+    "@iconify-json/streamline-freehand": "^1.2.1",
+    "@iconify-json/streamline-pixel": "^1.2.0",
+    "@iconify-json/streamline-sharp": "^1.2.0",
+    "@iconify/json": "^2.2.369",
     "@iconify/tailwind4": "^1.0.6",
     "sass": "^1.70.0",
     "tailwindcss": "^4.1.11"
   },
   "scripts": {
-    "build:css": "bun x tailwindcss -i ./main.css -o ./wwwroot/css/main.css --minify"
+    "build:css": "bun x tailwindcss -i ./main.css -o ./wwwroot/css/main.css --minify",
+    "watch:css": "bun x tailwindcss -i ./main.css -o ./wwwroot/css/main.css --minify --watch"
   }
 }

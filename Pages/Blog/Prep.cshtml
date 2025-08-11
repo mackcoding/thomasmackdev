@@ -5,13 +5,13 @@
 }
 
 @section Subheader {
-            Blog: Omni Deployment - Prerequisities
+                    Blog: Omni Deployment - Prerequisities
 }
 
-<div class="mt-6 max-w-none mx-auto px-4" style="width: 80%;">
+<div class="mt-6 max-w-full mx-auto px-4 lg:max-w-none lg:px-4" style="width: 100%; max-width: 80%;">
     <!-- Quick Links Navigation -->
     <div class="not-prose mb-8">
-        <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
+        <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
             <h2 class="text-lg font-bold mb-4">Quick Navigation</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
                 <a href="#technologies-overview" class="link link-hover">Technologies Overview</a>
@@ -38,8 +38,8 @@
                 <span class="badge badge-primary badge-sm">Omni Series</span>
                 <span class="badge badge-info badge-sm">Prerequisites</span>
             </div>
-            <h1 class="text-4xl font-bold mb-6 leading-tight">Requirements and Prepwork</h1>
-            <div class="flex items-center gap-6 text-sm text-base-content/60 mb-8">
+            <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight">Requirements and Prepwork</h1>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm text-base-content/60 mb-8">
                 <div class="flex items-center gap-2">
                     <span class="icon-[iconoir--calendar] text-base"></span>
                     <time datetime="2025-08-05">August 5, 2025</time>
@@ -51,8 +51,8 @@
             </div>
         </div>
 
-        <div class="alert alert-info mb-12 p-6">
-            <span class="icon-[iconoir--info-circle] text-2xl"></span>
+        <div class="alert alert-info mb-12 p-4 lg:p-6">
+            <span class="icon-[iconoir--info-circle] text-xl lg:text-2xl"></span>
             <div>
                 <h3 class="font-bold mb-2">Part 1 of the Omni Series</h3>
                 <div>Define prerequisites including Talos, Omni, Linode account, Proxmox, Tailscale, and Podman. Explain the architecture and tooling decisions for distributed Kubernetes.</div>
@@ -61,7 +61,7 @@
 
         <div class="space-y-8">
             <section id="technologies-overview">
-                <h2 class="text-2xl font-bold mb-6">Technologies Overview</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Technologies Overview</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>In this series, we will be deploying the following technologies:</p>
@@ -89,7 +89,7 @@
             </section>
 
             <section id="hosting-architecture">
-                <h2 class="text-2xl font-bold mb-6">Hosting Architecture</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Hosting Architecture</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>For this setup, we are using a hybrid hosting approach:</p>
@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="alert alert-warning">
-                        <span class="icon-[pixel--cloud] text-xl"></span>
+                        <span class="icon-[pixel--cloud] text-lg lg:text-xl"></span>
                         <div>
                             <div class="font-semibold">Hosting Notes</div>
                             <div class="text-sm">The Linode VM is dual-purpose, also running Netmaker for internal mesh networking (not covered in this series). You are not required to use Linode for Omni - any cloud VM or bare-metal host will work as long as it has internet access and a public IP. All control plane nodes are also configured to run workloads - we are not using dedicated control planes.</div>
@@ -133,7 +133,7 @@
             </section>
 
             <section id="important-notes">
-                <h2 class="text-2xl font-bold mb-6">Important Notes</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Important Notes</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>This setup is intended for <strong>non-production</strong>, lightweight workloads such as experimentation, personal labs, or low-traffic services.</p>
@@ -167,7 +167,7 @@
             </section>
 
             <section id="rationale">
-                <h2 class="text-2xl font-bold mb-6">Rationale for This Setup</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Rationale for This Setup</h2>
                 <hr class="mb-6">
                 <ul class="list-disc list-inside space-y-2 ml-4">
                     <li><strong>Low Traffic:</strong> The workloads hosted are not traffic-intensive, allowing VM-based control planes.</li>
@@ -179,7 +179,7 @@
             </section>
 
             <section id="prepping-tailscale">
-                <h2 class="text-2xl font-bold mb-6">Prepping Tailscale</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Prepping Tailscale</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>To get started, we need to prepare our Tailscale environment.</p>
@@ -226,7 +226,7 @@
                     </div>
 
                     <div class="alert alert-info">
-                        <span class="icon-[material-symbols--inbox-customize-outline-rounded] text-xl"></span>
+                        <span class="icon-[material-symbols--inbox-customize-outline-rounded] text-lg lg:text-xl"></span>
                         <div>
                             <div class="font-semibold">Customization</div>
                             <div class="text-sm">These tags allow you to write fine-grained ACLs and route IP ranges per role. Feel free to modify the tags and IP ranges as needed to fit your environment.</div>
@@ -236,7 +236,7 @@
             </section>
 
             <section id="access-controls">
-                <h2 class="text-2xl font-bold mb-6">Configuring Tailscale Access Controls</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Configuring Tailscale Access Controls</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>To implement the tags and IP pools defined above, navigate to the <strong>Access controls</strong> section in the <a href="https://login.tailscale.com/admin/acls" class="link link-primary" target="_blank">Tailscale admin console</a> and apply the following configuration:</p>
@@ -246,8 +246,8 @@
                             <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
                                 tailscale-acl.json
                             </div>
-                            <div class="p-4">
-                                <pre class="language-json"><code>{
+                            <div class="p-2 lg:p-4 overflow-x-auto">
+                                <pre class="language-json text-xs lg:text-sm"><code id="tailscale-acl">{
   "acls": [
     {
       "action": "accept",
@@ -294,13 +294,13 @@
 }</code></pre>
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code='{"acls":[{"action":"accept","src":["*"],"dst":["*:*"]}],"ssh":[{"action":"accept","src":["user@example.com"],"dst":["tag:platform"],"users":["user1"]}],"tagOwners":{"tag:core":["user@example.com"],"tag:talos-controlplane":["user@example.com"],"tag:talos-worker":["user@example.com"],"tag:platform":["user@example.com"]},"nodeAttrs":[{"target":["tag:core"],"ipPool":["100.64.5.0/24"]},{"target":["tag:talos-controlplane"],"ipPool":["100.64.10.0/24"]},{"target":["tag:talos-worker"],"ipPool":["100.64.20.0/24"]},{"target":["tag:platform"],"ipPool":["100.64.30.0/24"]},{"target":["autogroup:member"],"attr":["funnel"]}]}'>
+                        <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#tailscale-acl')">
                             <span class="icon-[iconoir--copy] text-sm"></span>
                         </button>
                     </div>
 
                     <div class="space-y-4">
-                        <h3 class="text-xl font-semibold">Configuration Notes</h3>
+                        <h3 class="text-lg lg:text-xl font-semibold">Configuration Notes</h3>
                         <ul class="list-disc list-inside space-y-2 ml-4">
                             <li>The <code>tag:platform</code> tag is used for standalone, non-Kubernetes systems such as CI/CD hosts or backup servers.</li>
                             <li>Modify <code>tagOwners</code> as needed to delegate tag ownership to other team members or service accounts.</li>
@@ -308,7 +308,7 @@
                         </ul>
 
                         <div class="alert alert-info">
-                            <span class="icon-[iconoir--info-circle] text-xl"></span>
+                            <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
                             <div>
                                 <div class="font-semibold">Tailscale Funnel</div>
                                 <div class="text-sm">Funnel allows secure public HTTPS exposure of local services without firewall or port forwarding. Keep the funnel attribute if you want to expose services publicly from your device, remove it if you are only using Tailscale for internal/private networking.</div>
@@ -319,48 +319,48 @@
             </section>
 
             <section id="configuration-breakdown">
-                <h2 class="text-2xl font-bold mb-6">Configuration Breakdown</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Configuration Breakdown</h2>
                 <hr class="mb-6">
                 <div class="space-y-6">
                     <p>To better understand what this configuration is doing, here's a breakdown of each section:</p>
 
-                    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6">
-                        <div class="tabs">
+                    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                        <div class="tabs tabs-boxed">
                             <input type="radio" name="config_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="ACLs" checked />
-                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-6">
-                                <h3 class="text-xl font-semibold mb-4">Access Control Lists (ACLs)</h3>
+                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-4 lg:p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Access Control Lists (ACLs)</h3>
                                 <p class="mb-4">The <code>acls</code> section defines general traffic rules between nodes. In this example, it allows <em>all</em> nodes to communicate with each other over <em>any</em> port and protocol:</p>
 
                                 <div class="relative">
                                     <div class="mockup-code bg-base-300 mb-4">
-                                        <div class="p-4">
-                                            <pre class="language-json"><code>{
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-json text-xs lg:text-sm"><code id="acls-example">{
   "action": "accept",
   "src": ["*"],
   "dst": ["*:*"]
 }</code></pre>
                                         </div>
                                     </div>
-                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code='{"action":"accept","src":["*"],"dst":["*:*"]}'>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#acls-example')">
                                         <span class="icon-[iconoir--copy] text-sm"></span>
                                     </button>
                                 </div>
 
                                 <div class="alert alert-warning">
-                                    <span class="icon-[iconoir--lock] text-xl"></span>
+                                    <span class="icon-[iconoir--lock] text-lg lg:text-xl"></span>
                                     <div>You may wish to restrict this in production environments to enforce stricter network segmentation.</div>
                                 </div>
                             </div>
 
                             <input type="radio" name="config_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="SSH" />
-                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-6">
-                                <h3 class="text-xl font-semibold mb-4">SSH Access</h3>
+                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-4 lg:p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">SSH Access</h3>
                                 <p class="mb-4">This section defines who can initiate SSH sessions and to which devices. It allows a specific user to SSH into machines tagged with <code>platform</code>:</p>
 
                                 <div class="relative">
                                     <div class="mockup-code bg-base-300 mb-4">
-                                        <div class="p-4">
-                                            <pre class="language-json"><code>{
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-json text-xs lg:text-sm"><code id="ssh-example">{
   "action": "accept",
   "src": ["user@example.com"],
   "dst": ["tag:platform"],
@@ -368,21 +368,21 @@
 }</code></pre>
                                         </div>
                                     </div>
-                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code='{"action":"accept","src":["user@example.com"],"dst":["tag:platform"],"users":["user1","user2"]}'>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#ssh-example')">
                                         <span class="icon-[iconoir--copy] text-sm"></span>
                                     </button>
                                 </div>
                             </div>
 
                             <input type="radio" name="config_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Tag Owners" />
-                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-6">
-                                <h3 class="text-xl font-semibold mb-4">Tag Owners</h3>
+                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-4 lg:p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Tag Owners</h3>
                                 <p class="mb-4">Defines which users are allowed to assign specific tags to their devices. This ensures only authorized users can associate machines with important roles:</p>
 
                                 <div class="relative">
                                     <div class="mockup-code bg-base-300 mb-4">
-                                        <div class="p-4">
-                                            <pre class="language-json"><code>{
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-json text-xs lg:text-sm"><code id="tag-owners-example">{
   "tag:core":               ["user@example.com"],
   "tag:talos-controlplane": ["user@example.com"],
   "tag:talos-worker":       ["user@example.com"],
@@ -390,27 +390,27 @@
 }</code></pre>
                                         </div>
                                     </div>
-                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code='{"tag:core":["user@example.com"],"tag:talos-controlplane":["user@example.com"],"tag:talos-worker":["user@example.com"],"tag:platform":["user@example.com"]}'>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#tag-owners-example')">
                                         <span class="icon-[iconoir--copy] text-sm"></span>
                                     </button>
                                 </div>
                             </div>
 
                             <input type="radio" name="config_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Node Attributes" />
-                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-6">
-                                <h3 class="text-xl font-semibold mb-4">Node Attributes</h3>
+                            <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-4 lg:p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Node Attributes</h3>
                                 <p class="mb-4">Used to assign attributes to specific tags. Here, each tag is associated with a static IP pool in the Tailscale subnet for predictable addressing:</p>
 
                                 <div class="relative">
                                     <div class="mockup-code bg-base-300 mb-4">
-                                        <div class="p-4">
-                                            <pre class="language-json"><code>{
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-json text-xs lg:text-sm"><code id="node-attrs-example">{
   "target": ["tag:talos-controlplane"],
   "ipPool": ["100.64.10.0/24"]
 }</code></pre>
                                         </div>
                                     </div>
-                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2 copy-btn" data-code='{"target":["tag:talos-controlplane"],"ipPool":["100.64.10.0/24"]}'>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#node-attrs-example')">
                                         <span class="icon-[iconoir--copy] text-sm"></span>
                                     </button>
                                 </div>
@@ -422,7 +422,7 @@
 
 
             <section id="architecture-goals">
-                <h2 class="text-2xl font-bold mb-6">Architecture and Goals</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Architecture and Goals</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>Once fully deployed, this system will allow us to:</p>
@@ -435,7 +435,7 @@
             </section>
 
             <section id="cluster-metadata">
-                <h2 class="text-2xl font-bold mb-6">Cluster Metadata & Labels</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Cluster Metadata & Labels</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>We use custom labels in the Kubernetes cluster to describe node type and location:</p>
@@ -466,7 +466,7 @@
 
                     <p class="mt-4">By utilizing custom zones and regions, we can enforce pod scheduling to run workloads in specific zones or regions based on requirements.</p>
 
-                    <h3 class="text-xl font-semibold mt-6">Region Format</h3>
+                    <h3 class="text-lg lg:text-xl font-semibold mt-6">Region Format</h3>
                     <p>
                         <strong>Format:</strong> <code>&lt;country&gt;-&lt;direction&gt;-&lt;state&gt;-&lt;index&gt;</code><br>
                         <strong>Example:</strong> <code>us-east-ny-1</code>
@@ -504,7 +504,7 @@
             </section>
 
             <section id="ip-allocation">
-                <h2 class="text-2xl font-bold mb-6">IP Address Allocation</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">IP Address Allocation</h2>
                 <hr class="mb-6">
                 <div class="overflow-x-auto">
                     <table class="table">
@@ -533,7 +533,7 @@
             </section>
 
             <section id="naming-scheme">
-                <h2 class="text-2xl font-bold mb-6">Host Naming Scheme</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Host Naming Scheme</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>
@@ -573,11 +573,11 @@
             </section>
 
             <section id="required-packages">
-                <h2 class="text-2xl font-bold mb-6">Required Packages</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Required Packages</h2>
                 <hr class="mb-6">
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-xl font-semibold mb-4">Proxmox Hosts</h3>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Proxmox Hosts</h3>
                         <div class="overflow-x-auto">
                             <table class="table">
                                 <thead>
@@ -609,7 +609,7 @@
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-semibold mb-4">Non-Proxmox Hosts (e.g., VMs)</h3>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Non-Proxmox Hosts (e.g., VMs)</h3>
                         <div class="overflow-x-auto">
                             <table class="table">
                                 <thead>
@@ -639,7 +639,7 @@
             </section>
 
             <section id="required-tools">
-                <h2 class="text-2xl font-bold mb-6">Required Tools</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Required Tools</h2>
                 <hr class="mb-6">
                 <div class="space-y-4">
                     <p>Before we get started, this guide assumes you have the following tools installed and configured:</p>
@@ -684,28 +684,28 @@
                     </div>
 
                     <div class="alert alert-success">
-                        <span class="icon-[iconoir--check] text-xl"></span>
+                        <span class="icon-[iconoir--check] text-lg lg:text-xl"></span>
                         <div>Ensure each of these tools is installed, in your PATH, and working before continuing.</div>
                     </div>
                 </div>
             </section>
 
             <section id="next-steps">
-                <h2 class="text-2xl font-bold mb-6">Next Steps</h2>
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Next Steps</h2>
                 <hr class="mb-6">
                 <p>And with that, we are onward! 🚀</p>
             </section>
         </div>
 
         <div class="not-prose mt-16">
-            <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-8">
-                <h3 class="text-xl font-bold mb-4">What's Next?</h3>
+            <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6 lg:p-8">
+                <h3 class="text-lg lg:text-xl font-bold mb-4">What's Next?</h3>
                 <p class="text-base-content/80 mb-6">Continue with Part 2 of the Omni Series where we'll provision and harden the Linode VPS that will host our Omni control plane.</p>
                 <div class="flex justify-start">
-                    <span class="btn btn-disabled btn-sm">
+                    <a href="/blog/2/omni-series-provisioning-linode-vps-for-omni" class="btn btn-primary btn-sm">
                         Part 2: Provisioning the Linode VPS for Omni
-                        <span class="icon-[iconoir--clock] text-sm"></span>
-                    </span>
+                        <span class="icon-[iconoir--arrow-right] text-sm"></span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -713,11 +713,11 @@
         <div class="not-prose mt-12">
             <div class="divider font-semibold">Series Navigation</div>
             <div class="flex flex-wrap gap-3 justify-center">
-                <span class="badge badge-success badge-lg">Part 1: Requirements and Prepwork (Current)</span>
-                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 2: Provisioning Linode VPS</a>
-                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 3: Installing Tailscale</a>
-                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 4: Bootstrapping Omni</a>
-                <a href="#" class="badge badge-outline badge-lg border-dotted hover:badge-success">Part 5: Preparing Talos Configs</a>
+                <span class="badge badge-success badge-sm sm:badge-lg text-xs sm:text-sm">Part 1: Requirements and Prepwork (Current)</span>
+                <a href="/blog/2/omni-series-provisioning-linode-vps-for-omni" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 2: Provisioning Linode VPS</a>
+                <a href="#" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 3: Installing Tailscale</a>
+                <a href="#" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 4: Bootstrapping Omni</a>
+                <a href="#" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 5: Preparing Talos Configs</a>
             </div>
         </div>
     </article>

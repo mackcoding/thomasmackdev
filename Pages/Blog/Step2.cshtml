@@ -1,0 +1,1475 @@
+@page "/blog/2/omni-series-provisioning-linode-vps-for-omni/"
+
+@model thomasmack.dev.Pages.Blog.Step2Model
+@{
+}
+@section Subheader {
+                    Blog: Omni Deployment - Provisioning Linode VPS for Omni
+}
+
+<div class="mt-6 max-w-full mx-auto px-4 lg:max-w-none lg:px-4" style="width: 100%; max-width: 80%;">
+    <!-- Quick Links Navigation -->
+    <div class="not-prose mb-8">
+        <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+            <h2 class="text-lg font-bold mb-4">Quick Navigation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
+                <a href="#requirements" class="link link-hover">Requirements</a>
+                <a href="#creating-linode-vps" class="link link-hover">Creating the Linode VPS</a>
+                <a href="#preparing-debian" class="link link-hover">Preparing Debian</a>
+                <a href="#creating-user-directories-keys" class="link link-hover">Creating User, Directories, and Keys</a>
+                <a href="#configuring-caddy" class="link link-hover">Configuring Caddy</a>
+                <a href="#auth0-setup" class="link link-hover">Auth0 Setup</a>
+                <a href="#podman-configuration" class="link link-hover">Podman Configuration</a>
+                <a href="#omni-service" class="link link-hover">Omni Service</a>
+                <a href="#installing-tailscale" class="link link-hover">Installing Tailscale and Configuring Firewall</a>
+                <a href="#final-steps" class="link link-hover">Final Steps</a>
+            </div>
+        </div>
+    </div>
+
+    <article class="prose prose-lg max-w-none">
+        <div class="not-prose mb-12">
+            <div class="flex flex-wrap gap-2 mb-6">
+                <span class="badge badge-primary badge-sm">Omni Series</span>
+                <span class="badge badge-info badge-sm">VPS Setup</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight">Provisioning Linode VPS for Omni</h1>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm text-base-content/60 mb-8">
+                <div class="flex items-center gap-2">
+                    <span class="icon-[iconoir--calendar] text-base"></span>
+                    <time datetime="2025-08-05">August 5, 2025</time>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="icon-[iconoir--clock] text-base"></span>
+                    <span>12 min read</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info mb-12 p-4 lg:p-6">
+            <span class="icon-[iconoir--info-circle] text-xl lg:text-2xl"></span>
+            <div>
+                <h3 class="font-bold mb-2">Part 2 of the Omni Series</h3>
+                <div>Set up and configure a Linode VPS to host the Sidero Omni control plane, including Debian 13 upgrade, Caddy configuration, Auth0 integration, and Podman container deployment.</div>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <section id="requirements">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Requirements</h2>
+                <hr class="mb-6">
+                <div class="space-y-4">
+                    <p>You will need to create an account with a VPS provider before proceeding. While this guide uses <strong>Linode</strong>, you may choose any provider - the only requirement is that the VPS must have:</p>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>A public IP address</li>
+                        <li>Internet access</li>
+                        <li>SSH access</li>
+                    </ul>
+                    <p>Our goal is to <strong>expose all services over Tailscale</strong>, not over the public internet.</p>
+
+                    <h3 class="text-lg lg:text-xl font-semibold mt-6">Quick Notes</h3>
+                    <p>This guide uses <code>{TAGS}</code> to make it easy to search and replace values. Update these placeholders with your own details.</p>
+
+                    <div class="overflow-x-auto">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Placeholder</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>{HOSTNAME}</code></td>
+                                    <td>Hostname for the server</td>
+                                    <td><code>omni.thomasmack.dev</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{PUBLIC_IP}</code></td>
+                                    <td>Public IP address</td>
+                                    <td><code>1.1.1.1</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{TAILSCALE_IP}</code></td>
+                                    <td>Tailscale IP address</td>
+                                    <td><code>100.64.1.2</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{AUTH0_DOMAIN}</code></td>
+                                    <td>Auth0 domain</td>
+                                    <td><code>dev-abc123.us.auth0.com</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{AUTH0_ID}</code></td>
+                                    <td>Auth0 client ID</td>
+                                    <td><code>abc123def456ghi789</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{EMAIL}</code></td>
+                                    <td>Initial user email</td>
+                                    <td><code>admin@@example.com</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{LETSENCRYPT_EMAIL}</code></td>
+                                    <td>ACME email</td>
+                                    <td><code>admin@@example.com</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{API_KEY}</code></td>
+                                    <td>Cloudflare API token/key</td>
+                                    <td><code>cf_api_token_here</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>{TAILSCALE_HOSTNAME}</code></td>
+                                    <td>Hostname used by Tailscale</td>
+                                    <td><code>omni</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="creating-linode-vps">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Creating the Linode VPS</h2>
+                <hr class="mb-6">
+                <div class="space-y-4">
+                    <ol class="list-decimal list-inside space-y-2 ml-4">
+                        <li>Log in to the <a href="https://cloud.linode.com/" class="link link-primary" target="_blank">Linode Cloud Manager</a></li>
+                        <li>In the left-hand menu, go to <strong>Compute → Linodes</strong></li>
+                        <li>Click <strong>Create Linode</strong> (top-right corner)</li>
+                        <li>Configure the VPS:</li>
+                    </ol>
+
+                    <div class="overflow-x-auto">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Setting</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Region</strong></td>
+                                    <td><code>Atlanta</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Operating System</strong></td>
+                                    <td><code>Debian 13</code>*</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Plan</strong></td>
+                                    <td><code>Shared CPU - Nanode 1GB</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Linode Label</strong></td>
+                                    <td><code>omni</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Linode Tags</strong></td>
+                                    <td><code>omni</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Placement Groups</strong></td>
+                                    <td><em>(leave empty)</em></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Security</strong></td>
+                                    <td>Set a <strong>strong root password</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SSH Keys</strong></td>
+                                    <td>Select your existing key if available</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Disk Encryption</strong></td>
+                                    <td>Enabled</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p><em>*If Debian 13 is not available, use the latest version and follow the upgrade instructions below.</em></p>
+
+                    <ol start="5" class="list-decimal list-inside space-y-2 ml-4">
+                        <li>Click <strong>Create Linode</strong> to provision the server.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="preparing-debian">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Preparing Debian</h2>
+                <hr class="mb-6">
+                <div class="space-y-4">
+                    <p>The <code>podman</code> packages in Debian 12 do not fully support <code>quadlet</code> files. Debian 13 provides full support, so an upgrade is recommended if you are on Debian 12 or earlier.</p>
+
+                    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                        <div class="tabs tabs-boxed">
+                            <input type="radio" name="debian_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Upgrade to Debian 13" checked />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Upgrade to Debian 13</h3>
+
+                                <ol class="list-decimal list-inside space-y-4 ml-4">
+                                    <li>SSH into the server:
+                                        <div class="relative mt-2">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="ssh-command">ssh root@@{PUBLIC_IP}</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#ssh-command')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                    </li>
+
+                                    <li>Update, clean up, and reboot:
+                                        <div class="relative">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                </div>
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="update-commands">
+apt update && apt dist-upgrade -y
+apt --purge autoremove -y
+apt autoclean
+reboot</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#update-commands')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                   </li>
+
+                                    <li>Update <code>sources.list</code> for Debian 13 (Trixie):
+                                        <div class="relative">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="sources-update">sed -i 's/bookworm/trixie/g' /etc/apt/sources.list</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#sources-update')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                        <div class="alert alert-info mt-2">
+                                            <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
+                                            <div class="text-sm">Also check <code>/etc/apt/sources.list.d/</code> for any additional entries.</div>
+                                        </div>
+                                    </li>
+
+                                    <li>Perform the upgrade:
+                                        <div class="relative">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                </div>
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="upgrade-commands">
+apt update && apt upgrade -y
+apt full-upgrade -y</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#upgrade-commands')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                   </li>
+
+                                    <li>Reboot the server:
+                                        <div class="relative">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="reboot-command">reboot</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#reboot-command')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                    </li>
+
+                                    <li>Remove leftover packages:
+                                        <div class="relative">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                </div>
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="cleanup-commands">
+apt autoremove -y
+apt autoclean</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#cleanup-commands')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                   </li>
+
+                                    <li>Set the hostname:
+                                        <div class="relative">
+                                            <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                                    <pre class="language-bash text-xs lg:text-sm"><code id="hostname-command">hostnamectl set-hostname {HOSTNAME}</code></pre>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#hostname-command')">
+                                                <span class="icon-[iconoir--copy] text-sm"></span>
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <input type="radio" name="debian_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Required Packages" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Required Packages</h3>
+
+                                <div class="alert alert-warning mb-4">
+                                    <span class="icon-[iconoir--warning-triangle] text-lg lg:text-xl"></span>
+                                    <div class="text-sm">If you are on an older version of Debian, upgrade to Debian 13 first or update your <code>sources.list</code> file accordingly.</div>
+                                </div>
+
+                                <p class="mb-4">Install the following tools:</p>
+
+                                <div class="overflow-x-auto mb-4">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Package</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>podman</strong></td>
+                                                <td>Daemonless container engine for developing, managing, and running OCI containers and pods.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>caddy</strong>*</td>
+                                                <td>Modern, extensible web server with automatic HTTPS and reverse proxying capabilities.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>acl</strong></td>
+                                                <td>Utilities for managing Access Control Lists (ACLs) on files and directories.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>ufw</strong></td>
+                                                <td>Uncomplicated Firewall for managing firewall rules.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="alert alert-info mb-4">
+                                    <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
+                                    <div class="text-sm">*If you plan to use Cloudflare or another plugin, ensure you install a version of Caddy that supports plugins.</div>
+                                </div>
+
+                                <p class="mb-2">Install packages:</p>
+                                <div class="relative">
+                                    <div class="mockup-code bg-base-300 mb-8">
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-bash text-xs lg:text-sm"><code id="install-packages">apt install -y podman acl ufw</code></pre>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#install-packages')">
+                                        <span class="icon-[iconoir--copy] text-sm"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="creating-user-directories-keys">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Creating User, Directories, and Keys</h2>
+                <hr class="mb-6">
+                <div class="space-y-8">
+                    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                        <div class="tabs tabs-boxed">
+                            <input type="radio" name="user_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Create Omni User" checked />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Create Omni User</h3>
+
+                                <p class="mb-4">For security, Podman is run as a non-root user. This user must be a member of the <strong>caddy</strong> group. The <code>loginctl</code> command ensures Podman continues running even when the user is logged out, which is required for proper operation.</p>
+
+                                <div class="relative">
+                                    <div class="mockup-code bg-base-300 mb-8">
+                                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                        </div>
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-bash text-xs lg:text-sm"><code id="create-user">
+adduser omni
+loginctl enable-linger omni
+usermod -aG caddy omni</code></pre>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#create-user')">
+                                        <span class="icon-[iconoir--copy] text-sm"></span>
+                                    </button>
+                                </div>
+
+                                <div class="alert alert-warning">
+                                    <span class="icon-[iconoir--warning-triangle] text-lg lg:text-xl"></span>
+                                    <div class="text-sm">Ensure the <code>omni</code> user has a valid password, as SSH access to this account will be required.</div>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="user_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Arguments" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Arguments</h3>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Command / Argument</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>adduser omni</strong></td>
+                                                <td>Creates a new user account named <code>omni</code> and prompts for password and user details.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>loginctl enable-linger omni</strong></td>
+                                                <td>Allows the <code>omni</code> user's services (such as Podman containers) to continue running after the user logs out.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>usermod -aG caddy omni</strong></td>
+                                                <td>Adds the <code>omni</code> user to the <code>caddy</code> group, giving it permissions to interact with Caddy configuration/files.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Create Directories</h3>
+
+                        <div class="overflow-x-auto mb-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Directory</th>
+                                        <th>Purpose</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>~/.config/containers/systemd</code></td>
+                                        <td>Stores Podman systemd unit files for managing containers as services.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>~/etcd</code></td>
+                                        <td>Data directory for the etcd key-value store.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>~/certs</code></td>
+                                        <td>Stores TLS/SSL certificates for secure communication.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="relative">
+                            <div class="mockup-code bg-base-300 mb-8">
+                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                    <pre class="language-bash text-xs lg:text-sm"><code id="create-dirs">mkdir -p ~/.config/containers/systemd ~/etcd ~/certs</code></pre>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#create-dirs')">
+                                <span class="icon-[iconoir--copy] text-sm"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Generate GPG Key</h3>
+
+                        <div class="alert alert-warning mb-4">
+                            <span class="icon-[iconoir--warning-triangle] text-lg lg:text-xl"></span>
+                            <div class="text-sm">You must run the commands as <code>omni</code>. Now is a good time to SSH in as the <code>omni</code> user.</div>
+                        </div>
+
+                        <p class="mb-4">We must generate the correct keys for the Omni service to use. To do this, run the following commands:</p>
+
+                        <div class="relative">
+                            <div class="mockup-code bg-base-300 mb-8">
+                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                    <pre class="language-bash text-xs lg:text-sm"><code id="gpg-generate">gpg --quick-generate-key "Omni" rsa4096 cert never</code></pre>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#gpg-generate')">
+                                <span class="icon-[iconoir--copy] text-sm"></span>
+                            </button>
+                        </div>
+
+                        <p class="mb-4">When you run the above command, it will output a fingerprint (a long string of text). Copy that and paste it into the next command:</p>
+
+                        <div class="relative">
+                            <div class="mockup-code bg-base-300 mb-8">
+                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                </div>
+                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                    <pre class="language-bash text-xs lg:text-sm"><code id="gpg-add-key">gpg --quick-add-key {FINGERPRINT} rsa4096 encr never</code></pre>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#gpg-add-key')">
+                                <span class="icon-[iconoir--copy] text-sm"></span>
+                            </button>
+                        </div>
+
+                        <p class="mb-4">Export the key to <code>~/etcd/omni.asc</code> and set permissions:</p>
+
+                        <div class="relative">
+                            <div class="mockup-code bg-base-300 mb-8">
+                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                    <pre class="language-bash text-xs lg:text-sm"><code id="gpg-export">
+gpg --export-secret-key --armor "Omni" > ~/etcd/omni.asc
+chmod 600 ~/etcd/omni.asc</code></pre>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#gpg-export')">
+                                <span class="icon-[iconoir--copy] text-sm"></span>
+                            </button>
+                        </div>
+
+                        <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                            <div class="tabs tabs-boxed">
+                                <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Key Generation" checked />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                    <h4 class="text-lg font-semibold mb-4">Key Generation Command Arguments</h4>
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Argument</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>--quick-generate-key</code></td>
+                                                    <td>Creates a new GPG key with minimal prompts.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>"Omni"</code></td>
+                                                    <td>Name/identifier for the key.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>rsa4096</code></td>
+                                                    <td>Key type and size (RSA, 4096 bits).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>cert</code></td>
+                                                    <td>Usage type - certificate signing.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>never</code></td>
+                                                    <td>Key expiration - never expires.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Subkey Creation" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                    <h4 class="text-lg font-semibold mb-4">Subkey Creation Command Arguments</h4>
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Argument</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>--quick-add-key</code></td>
+                                                    <td>Adds a subkey to an existing GPG key.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>{FINGERPRINT}</code></td>
+                                                    <td>Fingerprint of the primary key to update.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>rsa4096</code></td>
+                                                    <td>Key type and size (RSA, 4096 bits).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>encr</code></td>
+                                                    <td>Usage type - encryption.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>never</code></td>
+                                                    <td>Key expiration - never expires.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Key Export" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                    <h4 class="text-lg font-semibold mb-4">Key Export Command Arguments</h4>
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Argument</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>--export-secret-key</code></td>
+                                                    <td>Exports the private key material.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>--armor</code></td>
+                                                    <td>Outputs the key in ASCII-armored format.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>"Omni"</code></td>
+                                                    <td>Name/identifier of the key to export.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>> ~/etcd/omni.asc</code></td>
+                                                    <td>Redirects the output to a file in the <code>~/etcd</code> directory.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="chmod Command" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                    <h4 class="text-lg font-semibold mb-4">chmod Command Arguments</h4>
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Argument</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>chmod</code></td>
+                                                    <td>Command to change file permissions.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>600</code></td>
+                                                    <td>Grants read/write permissions to the owner only.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>~/etcd/omni.asc</code></td>
+                                                    <td>Target file whose permissions are being changed.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="configuring-caddy">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Configuring Caddy</h2>
+                <hr class="mb-6">
+                <div class="space-y-8">
+                    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                        <div class="tabs tabs-boxed">
+                            <input type="radio" name="caddy_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Caddyfile" checked />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Caddyfile</h3>
+
+                                <p class="mb-4">The <code>Caddyfile</code> is where all the magic for Caddy works. In my example, I am using Cloudflare - you will need to update the tags. However, if you are using another provider or not using Cloudflare, you can remove lines that are not relevant.</p>
+
+                                <div class="relative">
+                                    <div class="mockup-code bg-base-300 mb-8">
+                                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                            Caddyfile
+                                        </div>
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-caddyfile text-xs lg:text-sm"><code id="caddyfile">
+{
+    email {LETSENCRYPT_EMAIL}
+}
+
+{OMNI_HOSTNAME} {
+    reverse_proxy https://127.0.0.1:8443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+    tls {
+        dns cloudflare {API_KEY}
+    }
+}</code></pre>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#caddyfile')">
+                                        <span class="icon-[iconoir--copy] text-sm"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="caddy_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Arguments" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Arguments</h3>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Line</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>email {LETSENCRYPT_EMAIL}</code></td>
+                                                <td>Sets the email address used for Let's Encrypt certificate registration and renewal notifications.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>{OMNI_HOSTNAME}</code></td>
+                                                <td>The domain name that Caddy will serve (Omni's public hostname).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>reverse_proxy https://127.0.0.1:8443</code></td>
+                                                <td>Proxies incoming requests to the local Omni service running on port 8443 over HTTPS.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>transport http { ... }</code></td>
+                                                <td>Configures HTTP transport settings for the reverse proxy.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>tls_insecure_skip_verify</code></td>
+                                                <td>Disables TLS certificate verification for the upstream target (used for self-signed certs).</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>tls { ... }</code></td>
+                                                <td>Configures TLS settings for the site.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>dns cloudflare {API_KEY}</code></td>
+                                                <td>Uses the Cloudflare DNS provider and the specified API key for DNS-01 challenge certificate issuance.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Certificate Setup</h3>
+
+                        <div class="alert alert-warning mb-4">
+                            <span class="icon-[iconoir--warning-triangle] text-lg lg:text-xl"></span>
+                            <div class="text-sm">This must be ran as root.</div>
+                        </div>
+
+                        <p class="mb-4">For us to expose the certificate files to our container, we must create a <code>hardlink</code>. This will allow caddy to update our certificate automatically, and keep our logs clear from insecure notices.</p>
+
+                        <p class="mb-4">The first thing we will need to do is ensure that the <code>omni</code> user is in the <code>caddy</code> group. Next, we'll chmod the directory to <code>750</code>, and the <code>crt</code> files to <code>640.</code> And finally, we'll create our links.</p>
+
+                        <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                            <div class="tabs tabs-boxed">
+                                <input type="radio" name="cert_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Commands" checked />
+                                <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-4 lg:p-6">
+                                    <h4 class="text-lg font-semibold mb-4">Commands</h4>
+
+                                    <div class="relative">
+                                        <div class="mockup-code bg-base-300 mb-8">
+                                            <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                Commands
+                                            </div>
+                                            <div class="p-2 lg:p-4 overflow-x-auto">
+                                                <pre class="language-bash text-xs lg:text-sm"><code id="cert-setup">
+usermod -a -G caddy omni
+chmod 750 /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/{HOSTNAME}
+chmod 640 /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/{HOSTNAME}/*.crt /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/{HOSTNAME}/*.key
+ln /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/{HOSTNAME}/{HOSTNAME}.crt ~/certs/{HOSTNAME}.crt
+ln /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/{HOSTNAME}/{HOSTNAME}.key ~/certs/{HOSTNAME}.key</code></pre>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#cert-setup')">
+                                            <span class="icon-[iconoir--copy] text-sm"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <input type="radio" name="cert_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Arguments" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                    <h4 class="text-lg font-semibold mb-4">Arguments</h4>
+
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Command</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>usermod -a -G caddy omni</code></td>
+                                                    <td>Adds the <code>omni</code> user to the <code>caddy</code> group without removing the user from other groups (<code>-a</code> appends, <code>-G</code> specifies the group).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>chmod 750 /var/.../{HOSTNAME}</code></td>
+                                                    <td>Sets directory permissions so the owner has full access, the group has read/execute access, and others have no access.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>chmod 640 /var/.../{HOSTNAME}/*.crt /var/.../{HOSTNAME}/*.key</code></td>
+                                                    <td>Sets file permissions so the owner can read/write, the group can read, and others have no access for certificate (<code>.crt</code>) and key (<code>.key</code>) files.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>ln /var/.../{HOSTNAME}.crt ~/certs/{HOSTNAME}.crt</code></td>
+                                                    <td>Creates a symbolic link to the certificate file in the <code>~/certs</code> directory.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>ln /var/.../{HOSTNAME}.key ~/certs/{HOSTNAME}.key</code></td>
+                                                    <td>Creates a symbolic link to the private key file in the <code>~/certs</code> directory.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="auth0-setup">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Auth0 Setup</h2>
+                <hr class="mb-6">
+                <div class="space-y-6">
+                    <p>Omni requires an authentication system for logging in. Without this, you cannot use Omni. We will be using Auth0, as it is free after the trial period. You are free to use any system you'd like.</p>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Sign Up and Add an Application</h3>
+
+                        <ol class="list-decimal list-inside space-y-2 ml-4 mb-4">
+                            <li>Go to <a href="https://auth0.com/signup" class="link link-primary" target="_blank">Auth0 Signup</a> and create an account</li>
+                            <li>Navigate to <strong>Applications</strong> and click <strong>Create Application</strong></li>
+                            <li>Enter the name and select <strong>Regular Web Application</strong></li>
+                            <li>Configure the following settings:</li>
+                        </ol>
+
+                        <div class="overflow-x-auto mb-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Setting</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Name</strong></td>
+                                        <td><code>Omni</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Application Type</strong></td>
+                                        <td><code>Single page application</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Allowed Logout URLs</strong></td>
+                                        <td><code>https://omni.thomasmack.dev</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Allowed Callback URLs</strong></td>
+                                        <td><code>https://omni.thomasmack.dev</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Allowed Web Origins</strong></td>
+                                        <td><code>https://omni.thomasmack.dev</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ol start="5" class="list-decimal list-inside space-y-2 ml-4">
+                            <li>Note the <strong>Domain</strong> and <strong>Client ID</strong> for later use</li>
+                            <li>Underneath the <strong>Organizations → User Management → Users</strong>, add a user for yourself.</li>
+                        </ol>
+
+                        <div class="alert alert-info mt-4">
+                            <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
+                            <div class="text-sm">Note: You can configure this how you like; for the purposes of this guide, this keeps it simple.</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Set Up Authentication</h3>
+
+                        <ol class="list-decimal list-inside space-y-2 ml-4 mb-4">
+                            <li>Under <strong>Authentication</strong>, click <strong>Database</strong></li>
+                            <li>Click <strong>+ Create DB Connection</strong></li>
+                            <li>Configure:</li>
+                        </ol>
+
+                        <div class="overflow-x-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Setting</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Name</strong></td>
+                                        <td><code>Omni</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Password</strong></td>
+                                        <td><code>Enabled</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Disable Sign Ups</strong></td>
+                                        <td><code>Enabled</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Create Initial User</h3>
+
+                        <ol class="list-decimal list-inside space-y-2 ml-4">
+                            <li>Go to <strong>User Management</strong> → <strong>Users</strong></li>
+                            <li>Create a new user using <strong>Username-Password-Authentication</strong></li>
+                        </ol>
+
+                        <div class="alert alert-info mt-4">
+                            <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
+                            <div class="text-sm">Feel free to make adjustments or even change the configuration here.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="podman-configuration">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Podman Configuration</h2>
+                <hr class="mb-6">
+                <div class="space-y-6">
+                    <p>Podman <code>*.container</code> files in Podman are called <strong>Quadlet unit files</strong> that define how a container should run under <code>systemd</code>. They act as a high-level wrapper around a <code>.service</code> unit, letting you specify container settings (image, volumes, ports, environment variables) in a simplified format without writing full <code>systemd</code> unit files manually.</p>
+
+                    <p>When placed in <code>~/.config/containers/systemd</code> (user) or <code>/etc/containers/systemd</code> (system-wide), Podman automatically converts them into <code>.service</code> units and manages them via <code>systemctl</code>. This allows containers to start on boot, restart automatically on failure, and be managed just like native system services.</p>
+
+                    <p class="mb-4">Using your favorite editor, create the container file with <code>nano ~/.config/containers/systemd/omni.container</code> and paste the following:</p>
+
+                    <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
+                        <div class="tabs tabs-boxed">
+                            <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Container File" checked />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Container File</h3>
+
+                                <div class="relative">
+                                    <div class="mockup-code bg-base-300 mb-8">
+                                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                            omni.container
+                                        </div>
+                                        <div class="p-2 lg:p-4 overflow-x-auto">
+                                            <pre class="language-ini text-xs lg:text-sm"><code id="omni-container">
+[Unit]
+Description=Sidero Omni Service
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=ghcr.io/siderolabs/omni:latest
+Volume=/home/omni/etcd:/_out/etcd:Z
+Volume=/home/omni/etcd/omni.asc:/omni.asc:Z
+Volume=/home/omni/certs/{HOSTNAME}.crt:/tls.crt:ro
+Volume=/home/omni/certs/{HOSTNAME}.key:/tls.key:ro
+PublishPort=127.0.0.1:8443:8443
+PublishPort={TAILSCALE_IP}:8090:8090
+PublishPort={TAILSCALE_IP}:8091:8091
+PublishPort={TAILSCALE_IP}:8100:8100
+PublishPort=50180:50180/udp
+Network=bridge
+SecurityLabelDisable=true
+PodmanArgs=--cap-add=NET_ADMIN,SYS_MODULE,NET_RAW --device=/dev/net/tun --sysctl=net.ipv4.ip_forward=1 --sysctl=net.ipv4.conf.all.src_valid_mark=1
+Environment=GOMEMLIMIT=2GiB
+Exec=--name=omni \
+ --cert=/tls.crt \
+ --key=/tls.key \
+ --siderolink-api-cert=/tls.crt \
+ --siderolink-api-key=/tls.key \
+ --private-key-source=file:///omni.asc \
+ --event-sink-port=8091 \
+ --bind-addr=0.0.0.0:8443 \
+ --siderolink-api-bind-addr=0.0.0.0:8090 \
+ --k8s-proxy-bind-addr=0.0.0.0:8100 \
+ --advertised-api-url=https://{HOSTNAME}/ \
+ --siderolink-api-advertised-url=https://{HOSTNAME}:8090/ \
+ --siderolink-wireguard-advertised-addr={PUBLIC_IP}:50180 \
+ --advertised-kubernetes-proxy-url=https://{HOSTNAME}:8100/ \
+ --auth-auth0-enabled=true \
+ --auth-auth0-domain={AUTH0_DOMAIN} \
+ --auth-auth0-client-id={AUTH0_ID} \
+ --initial-users={EMAIL}
+
+[Service]
+Restart=always
+RestartSec=30s
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target</code></pre>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#omni-container')">
+                                        <span class="icon-[iconoir--copy] text-sm"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Unit Section" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">[Unit] Section</h3>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>Describes the name of the service</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>After</td>
+                                                <td>Ensures the service starts after the specified system target</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Wants</td>
+                                                <td>Declares related services to be started together</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Container Section" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">[Container] Section - General</h3>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Image</td>
+                                                <td>Specifies the container image to use. <code>:latest</code> always pulls the latest tag</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Network</td>
+                                                <td>Defines the Podman network mode (e.g., <code>bridge</code>)</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>SecurityLabelDisable</td>
+                                                <td>Disables SELinux/AppArmor labeling inside the container</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Environment</td>
+                                                <td>Sets environment variables (e.g., memory limits)</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Exec</td>
+                                                <td>The command and arguments passed to the Omni binary</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Volume Mappings" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Volume Mappings</h3>
+
+                                <div class="overflow-x-auto mb-4">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Syntax Example</th>
+                                                <th>Description</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>/src:/dst:Z</code></td>
+                                                <td>Mounts host directory <code>/src</code> into the container at <code>/dst</code>, <code>:Z</code> relabels for shared SELinux use</td>
+                                                <td>Yes/No</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>/src:/dst:ro</code></td>
+                                                <td>Mounts as read-only</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h4 class="text-md font-semibold mb-4">Explanation of mounted volumes in omni.container:</h4>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Host Path</th>
+                                                <th>Container Path</th>
+                                                <th>Purpose</th>
+                                                <th>Flags</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>/home/omni/etcd</code></td>
+                                                <td><code>/_out/etcd</code></td>
+                                                <td>Stores etcd data output from Omni</td>
+                                                <td><code>:Z</code></td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>/home/omni/etcd/omni.asc</code></td>
+                                                <td><code>/omni.asc</code></td>
+                                                <td>Private GPG key for encryption</td>
+                                                <td><code>:Z</code></td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>/home/omni/certs/{HOSTNAME}.crt</code></td>
+                                                <td><code>/tls.crt</code></td>
+                                                <td>TLS certificate for Omni</td>
+                                                <td><code>:ro</code></td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>/home/omni/certs/{HOSTNAME}.key</code></td>
+                                                <td><code>/tls.key</code></td>
+                                                <td>TLS private key for Omni</td>
+                                                <td><code>:ro</code></td>
+                                                <td>Yes</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Published Ports" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Published Ports</h3>
+
+                                <div class="overflow-x-auto mb-4">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Syntax Example</th>
+                                                <th>Description</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>HOST_IP:HOST_PORT:CONTAINER_PORT</code></td>
+                                                <td>Binds container port to specific host IP and port</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>PORT:PORT/udp</code></td>
+                                                <td>Publishes UDP port</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h4 class="text-md font-semibold mb-4">Explanation of published ports in omni.container:</h4>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Host Binding</th>
+                                                <th>Container Port</th>
+                                                <th>Protocol</th>
+                                                <th>Purpose / Usage</th>
+                                                <th>Required</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>127.0.0.1:8443:8443</code></td>
+                                                <td>8443</td>
+                                                <td>TCP</td>
+                                                <td>Omni API, bound to localhost for reverse proxy via Caddy</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>{TAILSCALE_IP}:8090:8090</code></td>
+                                                <td>8090</td>
+                                                <td>TCP</td>
+                                                <td>SideroLink API, accessible via Tailscale</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>{TAILSCALE_IP}:8091:8091</code></td>
+                                                <td>8091</td>
+                                                <td>TCP</td>
+                                                <td>Event sink port for internal communications</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>{TAILSCALE_IP}:8100:8100</code></td>
+                                                <td>8100</td>
+                                                <td>TCP</td>
+                                                <td>Kubernetes API proxy port</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>50180:50180/udp</code></td>
+                                                <td>50180</td>
+                                                <td>UDP</td>
+                                                <td>WireGuard tunnel for SideroLink</td>
+                                                <td>Yes</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Podman Arguments" />
+                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <h3 class="text-lg lg:text-xl font-semibold mb-4">Podman Arguments (PodmanArgs)</h3>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Argument</th>
+                                                <th>Purpose</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>--cap-add=NET_ADMIN,SYS_MODULE,NET_RAW</code></td>
+                                                <td>Adds network and module capabilities needed for WireGuard and networking features</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>--device=/dev/net/tun</code></td>
+                                                <td>Grants access to TUN device for VPN tunneling</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>--sysctl=net.ipv4.ip_forward=1</code></td>
+                                                <td>Enables IPv4 packet forwarding</td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>--sysctl=net.ipv4.conf.all.src_valid_mark=1</code></td>
+                                                <td>Ensures correct routing for marked packets (used by Tailscale/WireGuard)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="omni-service">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Omni Service</h2>
+                <hr class="mb-6">
+                <div class="space-y-6">
+                    <div class="alert alert-warning">
+                        <span class="icon-[iconoir--warning-triangle] text-lg lg:text-xl"></span>
+                        <div class="text-sm">You must use <code>ssh omni@@{IP_ADDRESS}</code></div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Starting the Service</h3>
+
+                        <p class="mb-4">Whenever working with commands like <code>systemctl</code> and <code>journalctl</code> they must include <code>--user</code>, otherwise they will not work.</p>
+
+                        <p class="mb-4">To start the server, we must first reload the daemon, this generates the <code>*.service</code>. We do not need to run <code>enable</code>.</p>
+
+                        <div class="relative">
+                            <div class="mockup-code bg-base-300 mb-8">
+                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                </div>
+                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                    <pre class="language-bash text-xs lg:text-sm"><code id="start-service">
+systemctl --user daemon-reload
+systemctl --user start omni</code></pre>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#start-service')">
+                                <span class="icon-[iconoir--copy] text-sm"></span>
+                            </button>
+                        </div>
+
+                        <div class="alert alert-info mb-4">
+                            <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
+                            <div class="text-sm">This should cause a hang for a moment. This is normal.</div>
+                        </div>
+
+                        <p class="mb-4">You can check the status with <code>podman ps</code> or you can view logs with <code>journalctl --user -fu omni.service</code>. It should be outputting something like this:</p>
+
+                        <div class="mockup-code bg-base-300 mb-8">
+                            <div class="p-2 lg:p-4 overflow-x-auto">
+                                <pre class="language-log text-xs lg:text-sm"><code id="log-output">Aug 10 20:05:37 HOSTNAME systemd-omni[14643]: {"level":"info","ts":1754870737.3384647,"caller":"qruntime/qruntime.go:308","msg":"reconcile succeeded","component":"omni_runtime","controller":"TalosExtensionsController","namespace":"default","type":"TalosVersions.omni.sidero.dev","id":"1.9.6","job":"reconcile","busy":0.034596069}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="installing-tailscale">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Installing Tailscale and Configuring Firewall</h2>
+                <hr class="mb-6">
+                <div class="space-y-6">
+                    <p>Our goal is to have all secure traffic over tailscale, rather than the public internet. This not only enhances security, but it keeps thing clean.</p>
+
+                    <p>Head back over to the Admin Console at Tailscale. Under the <code>Machines</code> tab, click <code>Add Device</code> and select <code>Linux</code>.</p>
+
+                    <p class="mb-4">On this page, add the tags <code>tag:core</code> since this is core infrastructure. Adjust as needed, or run the command:</p>
+
+                    <div class="relative">
+                        <div class="mockup-code bg-base-300 mb-8">
+                            <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                            </div>
+                            <div class="p-2 lg:p-4 overflow-x-auto">
+                                <pre class="language-bash text-xs lg:text-sm"><code id="tailscale-install">
+curl -fsSL https://tailscale.com/install.sh | sh
+tailscale up --auth-key={GENERATEDKEY} --advertise-tags=tag:core</code></pre>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#tailscale-install')">
+                            <span class="icon-[iconoir--copy] text-sm"></span>
+                        </button>
+                    </div>
+
+                    <div class="alert alert-info mb-4">
+                        <span class="icon-[iconoir--info-circle] text-lg lg:text-xl"></span>
+                        <div class="text-sm">Note: If you use the command above, you will need to go into the Tailscale admin console and generate your key.</div>
+                    </div>
+
+                    <p class="mb-4">Assuming <code>tailscale</code> is setup correctly, adding the <code>tag:core</code> will allow you to ssh into the server with <code>ssh root@@{TAILSCALE_HOSTNAME}</code>. If you set the hostname to <code>omni</code>, the <code>{TAILSCALE_HOSTNAME}</code> will be <code>omni</code> - <code>ssh root@@omni</code></p>
+
+                    <div>
+                        <h3 class="text-lg lg:text-xl font-semibold mb-4">Configuring Firewall</h3>
+
+                        <p class="mb-4">There is no point in communicating over public network. This is not only completely unnecessary, but insecure. We will configure <code>caddy</code> to listen over the tailscale ip address. We will leave Omni's wireguard to the public IP address.</p>
+
+                        <div class="relative">
+                            <div class="mockup-code bg-base-300 mb-8">
+                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                </div>
+                                <div class="p-2 lg:p-4 overflow-x-auto">
+                                    <pre class="language-bash text-xs lg:text-sm"><code id="ufw-config">
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow proto udp to any port 50180
+ufw allow in on tailscale0
+ufw --force enable</code></pre>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost absolute top-2 right-2" onclick="copyToClipboard(this, '#ufw-config')">
+                                <span class="icon-[iconoir--copy] text-sm"></span>
+                            </button>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <span class="icon-[iconoir--warning-triangle] text-lg lg:text-xl"></span>
+                            <div class="text-sm">Note: There are other methods to binding the tailscale ip address that are safer. However, most VMs provide some kind of KVM access in case of emergency. Use the method best suited for your environment.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="final-steps">
+                <h2 class="text-xl md:text-2xl font-bold mb-6">Final Steps</h2>
+                <hr class="mb-6">
+                <div class="space-y-4">
+                    <p>Ideally, you should use MagicDNS or split-horizon DNS to map <code>{HOSTNAME}</code> to <code>{TAILSCALE_IP}</code>. While using public DNS records that point to a Tailscale IP is generally not recommended, it can be acceptable in certain scenarios - choose the approach that best fits your environment.</p>
+
+                    <p>Before proceeding, reboot the server to ensure all services restart correctly.</p>
+
+                    <p>Once it's back online, log in to Omni and confirm everything is functioning as expected.</p>
+
+    <p>From here, your journey continues- full steam ahead!! <span class="icon-[game-icons--steam-locomotive] text-lg menu-icon"></span></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="not-prose mt-16">
+            <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-6 lg:p-8">
+                <h3 class="text-lg lg:text-xl font-bold mb-4">What's Next?</h3>
+                <p class="text-base-content/80 mb-6">Continue with Part 3 of the Omni Series where we'll configure additional components and begin setting up our Kubernetes cluster.</p>
+                <div class="flex justify-start">
+                    <a href="#" class="btn btn-primary btn-sm">
+                        Part 3: Installing Tailscale
+                        <span class="icon-[iconoir--arrow-right] text-sm"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="not-prose mt-12">
+            <div class="divider font-semibold">Series Navigation</div>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="/blog/1/omni-series-prerequisites" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 1: Requirements and Prepwork</a>
+                <span class="badge badge-success badge-sm sm:badge-lg text-xs sm:text-sm">Part 2: Provisioning Linode VPS (Current)</span>
+                <a href="#" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 3: Installing Tailscale</a>
+                <a href="#" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 4: Bootstrapping Omni</a>
+                <a href="#" class="badge badge-outline badge-sm sm:badge-lg border-dotted hover:badge-success text-xs sm:text-sm">Part 5: Preparing Talos Configs</a>
+            </div>
+        </div>
+    </article>
+</div>
+
+<script src="~/js/blogpost.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>

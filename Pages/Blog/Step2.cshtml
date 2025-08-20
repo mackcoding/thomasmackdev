@@ -4,7 +4,7 @@
 @{
 }
 @section Subheader {
-                    Blog: Omni Deployment - Provisioning Linode VPS for Omni
+                        Blog: Omni Deployment - Provisioning Linode VPS for Omni
 }
 
 <div class="mt-6 max-w-full mx-auto px-4 lg:max-w-none lg:px-4" style="width: 100%; max-width: 80%;">
@@ -71,8 +71,8 @@
                     <p>This guide uses <code>{TAGS}</code> to make it easy to search and replace values. Update these placeholders with your own details.</p>
 
                     <div class="overflow-x-auto">
-                        <table class="table">
-                            <thead>
+                        <table class="table table-zebra">
+                            <thead class="bg-base-300">
                                 <tr>
                                     <th>Placeholder</th>
                                     <th>Description</th>
@@ -143,8 +143,8 @@
                     </ol>
 
                     <div class="overflow-x-auto">
-                        <table class="table">
-                            <thead>
+                        <table class="table table-zebra">
+                            <thead class="bg-base-300">
                                 <tr>
                                     <th>Setting</th>
                                     <th>Value</th>
@@ -206,15 +206,19 @@
                     <p>The <code>podman</code> packages in Debian 12 do not fully support <code>quadlet</code> files. Debian 13 provides full support, so an upgrade is recommended if you are on Debian 12 or earlier.</p>
 
                     <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
-                        <div class="tabs tabs-boxed">
+                        <div role="tablist" class="tabs tabs-boxed">
                             <input type="radio" name="debian_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Upgrade to Debian 13" checked />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Upgrade to Debian 13</h3>
 
                                 <ol class="list-decimal list-inside space-y-4 ml-4">
-                                    <li>SSH into the server:
+                                    <li>
+                                        SSH into the server:
                                         <div class="relative mt-2">
                                             <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    SSH Connection Command
+                                                </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="ssh-command">ssh root@@{PUBLIC_IP}</code></pre>
                                                 </div>
@@ -225,10 +229,12 @@
                                         </div>
                                     </li>
 
-                                    <li>Update, clean up, and reboot:
+                                    <li>
+                                        Update, clean up, and reboot:
                                         <div class="relative">
                                             <div class="mockup-code bg-base-300 mb-8">
                                                 <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    System Update Commands
                                                 </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="update-commands">
@@ -242,11 +248,15 @@ reboot</code></pre>
                                                 <span class="icon-[iconoir--copy] text-sm"></span>
                                             </button>
                                         </div>
-                                   </li>
+                                    </li>
 
-                                    <li>Update <code>sources.list</code> for Debian 13 (Trixie):
+                                    <li>
+                                        Update <code>sources.list</code> for Debian 13 (Trixie):
                                         <div class="relative">
                                             <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    Sources List Update
+                                                </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="sources-update">sed -i 's/bookworm/trixie/g' /etc/apt/sources.list</code></pre>
                                                 </div>
@@ -261,10 +271,12 @@ reboot</code></pre>
                                         </div>
                                     </li>
 
-                                    <li>Perform the upgrade:
+                                    <li>
+                                        Perform the upgrade:
                                         <div class="relative">
                                             <div class="mockup-code bg-base-300 mb-8">
                                                 <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    Debian Upgrade Commands
                                                 </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="upgrade-commands">
@@ -276,11 +288,15 @@ apt full-upgrade -y</code></pre>
                                                 <span class="icon-[iconoir--copy] text-sm"></span>
                                             </button>
                                         </div>
-                                   </li>
+                                    </li>
 
-                                    <li>Reboot the server:
+                                    <li>
+                                        Reboot the server:
                                         <div class="relative">
                                             <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    Reboot Command
+                                                </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="reboot-command">reboot</code></pre>
                                                 </div>
@@ -291,10 +307,12 @@ apt full-upgrade -y</code></pre>
                                         </div>
                                     </li>
 
-                                    <li>Remove leftover packages:
+                                    <li>
+                                        Remove leftover packages:
                                         <div class="relative">
                                             <div class="mockup-code bg-base-300 mb-8">
                                                 <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    Cleanup Commands
                                                 </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="cleanup-commands">
@@ -306,11 +324,15 @@ apt autoclean</code></pre>
                                                 <span class="icon-[iconoir--copy] text-sm"></span>
                                             </button>
                                         </div>
-                                   </li>
+                                    </li>
 
-                                    <li>Set the hostname:
+                                    <li>
+                                        Set the hostname:
                                         <div class="relative">
                                             <div class="mockup-code bg-base-300 mb-8">
+                                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                                    Set Hostname
+                                                </div>
                                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                                     <pre class="language-bash text-xs lg:text-sm"><code id="hostname-command">hostnamectl set-hostname {HOSTNAME}</code></pre>
                                                 </div>
@@ -324,7 +346,7 @@ apt autoclean</code></pre>
                             </div>
 
                             <input type="radio" name="debian_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Required Packages" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Required Packages</h3>
 
                                 <div class="alert alert-warning mb-4">
@@ -335,8 +357,8 @@ apt autoclean</code></pre>
                                 <p class="mb-4">Install the following tools:</p>
 
                                 <div class="overflow-x-auto mb-4">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Package</th>
                                                 <th>Description</th>
@@ -371,6 +393,9 @@ apt autoclean</code></pre>
                                 <p class="mb-2">Install packages:</p>
                                 <div class="relative">
                                     <div class="mockup-code bg-base-300 mb-8">
+                                        <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                            Package Installation
+                                        </div>
                                         <div class="p-2 lg:p-4 overflow-x-auto">
                                             <pre class="language-bash text-xs lg:text-sm"><code id="install-packages">apt install -y podman acl ufw</code></pre>
                                         </div>
@@ -391,9 +416,9 @@ apt autoclean</code></pre>
                 <hr class="mb-6">
                 <div class="space-y-8">
                     <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
-                        <div class="tabs tabs-boxed">
+                        <div role="tablist" class="tabs tabs-boxed">
                             <input type="radio" name="user_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Create Omni User" checked />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Create Omni User</h3>
 
                                 <p class="mb-4">For security, Podman is run as a non-root user. This user must be a member of the <strong>caddy</strong> group. The <code>loginctl</code> command ensures Podman continues running even when the user is logged out, which is required for proper operation.</p>
@@ -401,6 +426,7 @@ apt autoclean</code></pre>
                                 <div class="relative">
                                     <div class="mockup-code bg-base-300 mb-8">
                                         <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                            Create Omni User
                                         </div>
                                         <div class="p-2 lg:p-4 overflow-x-auto">
                                             <pre class="language-bash text-xs lg:text-sm"><code id="create-user">
@@ -421,12 +447,12 @@ usermod -aG caddy omni</code></pre>
                             </div>
 
                             <input type="radio" name="user_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Arguments" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Arguments</h3>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Command / Argument</th>
                                                 <th>Description</th>
@@ -456,8 +482,8 @@ usermod -aG caddy omni</code></pre>
                         <h3 class="text-lg lg:text-xl font-semibold mb-4">Create Directories</h3>
 
                         <div class="overflow-x-auto mb-4">
-                            <table class="table">
-                                <thead>
+                            <table class="table table-zebra">
+                                <thead class="bg-base-300">
                                     <tr>
                                         <th>Directory</th>
                                         <th>Purpose</th>
@@ -482,6 +508,9 @@ usermod -aG caddy omni</code></pre>
 
                         <div class="relative">
                             <div class="mockup-code bg-base-300 mb-8">
+                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                    Create Directories
+                                </div>
                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                     <pre class="language-bash text-xs lg:text-sm"><code id="create-dirs">mkdir -p ~/.config/containers/systemd ~/etcd ~/certs</code></pre>
                                 </div>
@@ -504,6 +533,9 @@ usermod -aG caddy omni</code></pre>
 
                         <div class="relative">
                             <div class="mockup-code bg-base-300 mb-8">
+                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                    Generate GPG Key
+                                </div>
                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                     <pre class="language-bash text-xs lg:text-sm"><code id="gpg-generate">gpg --quick-generate-key "Omni" rsa4096 cert never</code></pre>
                                 </div>
@@ -518,6 +550,7 @@ usermod -aG caddy omni</code></pre>
                         <div class="relative">
                             <div class="mockup-code bg-base-300 mb-8">
                                 <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                    Add GPG Subkey
                                 </div>
                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                     <pre class="language-bash text-xs lg:text-sm"><code id="gpg-add-key">gpg --quick-add-key {FINGERPRINT} rsa4096 encr never</code></pre>
@@ -532,6 +565,9 @@ usermod -aG caddy omni</code></pre>
 
                         <div class="relative">
                             <div class="mockup-code bg-base-300 mb-8">
+                                <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                    Export GPG Key
+                                </div>
                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                     <pre class="language-bash text-xs lg:text-sm"><code id="gpg-export">
 gpg --export-secret-key --armor "Omni" > ~/etcd/omni.asc
@@ -544,13 +580,13 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                         </div>
 
                         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
-                            <div class="tabs tabs-boxed">
+                            <div role="tablist" class="tabs tabs-boxed">
                                 <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Key Generation" checked />
-                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                     <h4 class="text-lg font-semibold mb-4">Key Generation Command Arguments</h4>
                                     <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-zebra">
+                                            <thead class="bg-base-300">
                                                 <tr>
                                                     <th>Argument</th>
                                                     <th>Description</th>
@@ -583,11 +619,11 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                                 </div>
 
                                 <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Subkey Creation" />
-                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                     <h4 class="text-lg font-semibold mb-4">Subkey Creation Command Arguments</h4>
                                     <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-zebra">
+                                            <thead class="bg-base-300">
                                                 <tr>
                                                     <th>Argument</th>
                                                     <th>Description</th>
@@ -620,11 +656,11 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                                 </div>
 
                                 <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Key Export" />
-                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                     <h4 class="text-lg font-semibold mb-4">Key Export Command Arguments</h4>
                                     <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-zebra">
+                                            <thead class="bg-base-300">
                                                 <tr>
                                                     <th>Argument</th>
                                                     <th>Description</th>
@@ -653,11 +689,11 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                                 </div>
 
                                 <input type="radio" name="gpg_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="chmod Command" />
-                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                     <h4 class="text-lg font-semibold mb-4">chmod Command Arguments</h4>
                                     <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-zebra">
+                                            <thead class="bg-base-300">
                                                 <tr>
                                                     <th>Argument</th>
                                                     <th>Description</th>
@@ -691,9 +727,9 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                 <hr class="mb-6">
                 <div class="space-y-8">
                     <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
-                        <div class="tabs tabs-boxed">
+                        <div role="tablist" class="tabs tabs-boxed">
                             <input type="radio" name="caddy_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Caddyfile" checked />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Caddyfile</h3>
 
                                 <p class="mb-4">The <code>Caddyfile</code> is where all the magic for Caddy works. In my example, I am using Cloudflare - you will need to update the tags. However, if you are using another provider or not using Cloudflare, you can remove lines that are not relevant.</p>
@@ -728,12 +764,12 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                             </div>
 
                             <input type="radio" name="caddy_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Arguments" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Arguments</h3>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Line</th>
                                                 <th>Description</th>
@@ -788,15 +824,15 @@ chmod 600 ~/etcd/omni.asc</code></pre>
                         <p class="mb-4">The first thing we will need to do is ensure that the <code>omni</code> user is in the <code>caddy</code> group. Next, we'll chmod the directory to <code>750</code>, and the <code>crt</code> files to <code>640.</code> And finally, we'll create our links.</p>
 
                         <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
-                            <div class="tabs tabs-boxed">
+                            <div role="tablist" class="tabs tabs-boxed">
                                 <input type="radio" name="cert_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Commands" checked />
-                                <div role="tabpanel" class="tab-content bg-base-300 border-base-300 rounded-box p-4 lg:p-6">
+                                <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                     <h4 class="text-lg font-semibold mb-4">Commands</h4>
 
                                     <div class="relative">
                                         <div class="mockup-code bg-base-300 mb-8">
                                             <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
-                                                Commands
+                                                Certificate Setup Commands
                                             </div>
                                             <div class="p-2 lg:p-4 overflow-x-auto">
                                                 <pre class="language-bash text-xs lg:text-sm"><code id="cert-setup">
@@ -814,12 +850,12 @@ ln /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-d
                                 </div>
 
                                 <input type="radio" name="cert_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Arguments" />
-                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                     <h4 class="text-lg font-semibold mb-4">Arguments</h4>
 
                                     <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-zebra">
+                                            <thead class="bg-base-300">
                                                 <tr>
                                                     <th>Command</th>
                                                     <th>Description</th>
@@ -873,8 +909,8 @@ ln /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-d
                         </ol>
 
                         <div class="overflow-x-auto mb-4">
-                            <table class="table">
-                                <thead>
+                            <table class="table table-zebra">
+                                <thead class="bg-base-300">
                                     <tr>
                                         <th>Setting</th>
                                         <th>Value</th>
@@ -926,8 +962,8 @@ ln /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-d
                         </ol>
 
                         <div class="overflow-x-auto">
-                            <table class="table">
-                                <thead>
+                            <table class="table table-zebra">
+                                <thead class="bg-base-300">
                                     <tr>
                                         <th>Setting</th>
                                         <th>Value</th>
@@ -978,9 +1014,9 @@ ln /var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-d
                     <p class="mb-4">Using your favorite editor, create the container file with <code>nano ~/.config/containers/systemd/omni.container</code> and paste the following:</p>
 
                     <div class="border border-base-content/20 bg-base-200 rounded-2xl shadow-lg p-4 lg:p-6">
-                        <div class="tabs tabs-boxed">
+                        <div role="tablist" class="tabs tabs-boxed">
                             <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Container File" checked />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Container File</h3>
 
                                 <div class="relative">
@@ -1045,12 +1081,12 @@ WantedBy=default.target</code></pre>
                             </div>
 
                             <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Unit Section" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">[Unit] Section</h3>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Description</th>
@@ -1079,12 +1115,12 @@ WantedBy=default.target</code></pre>
                             </div>
 
                             <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Container Section" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">[Container] Section - General</h3>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Description</th>
@@ -1123,12 +1159,12 @@ WantedBy=default.target</code></pre>
                             </div>
 
                             <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Volume Mappings" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Volume Mappings</h3>
 
                                 <div class="overflow-x-auto mb-4">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Syntax Example</th>
                                                 <th>Description</th>
@@ -1153,8 +1189,8 @@ WantedBy=default.target</code></pre>
                                 <h4 class="text-md font-semibold mb-4">Explanation of mounted volumes in omni.container:</h4>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Host Path</th>
                                                 <th>Container Path</th>
@@ -1198,12 +1234,12 @@ WantedBy=default.target</code></pre>
                             </div>
 
                             <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Published Ports" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Published Ports</h3>
 
                                 <div class="overflow-x-auto mb-4">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Syntax Example</th>
                                                 <th>Description</th>
@@ -1228,8 +1264,8 @@ WantedBy=default.target</code></pre>
                                 <h4 class="text-md font-semibold mb-4">Explanation of published ports in omni.container:</h4>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Host Binding</th>
                                                 <th>Container Port</th>
@@ -1280,12 +1316,12 @@ WantedBy=default.target</code></pre>
                             </div>
 
                             <input type="radio" name="podman_tabs" role="tab" class="tab btn bg-base-300 hover:bg-base-content/10 checked:bg-primary checked:text-primary-content" aria-label="Podman Arguments" />
-                            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                            <div role="tabpanel" class="tab-content bg-base-300/20 border-base-300 brightness-80 rounded-box p-4 lg:p-6">
                                 <h3 class="text-lg lg:text-xl font-semibold mb-4">Podman Arguments (PodmanArgs)</h3>
 
                                 <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-zebra">
+                                        <thead class="bg-base-300">
                                             <tr>
                                                 <th>Argument</th>
                                                 <th>Purpose</th>
@@ -1336,6 +1372,7 @@ WantedBy=default.target</code></pre>
                         <div class="relative">
                             <div class="mockup-code bg-base-300 mb-8">
                                 <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                    Start Omni Service
                                 </div>
                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                     <pre class="language-bash text-xs lg:text-sm"><code id="start-service">
@@ -1356,6 +1393,9 @@ systemctl --user start omni</code></pre>
                         <p class="mb-4">You can check the status with <code>podman ps</code> or you can view logs with <code>journalctl --user -fu omni.service</code>. It should be outputting something like this:</p>
 
                         <div class="mockup-code bg-base-300 mb-8">
+                            <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                Sample Log Output
+                            </div>
                             <div class="p-2 lg:p-4 overflow-x-auto">
                                 <pre class="language-log text-xs lg:text-sm"><code id="log-output">Aug 10 20:05:37 HOSTNAME systemd-omni[14643]: {"level":"info","ts":1754870737.3384647,"caller":"qruntime/qruntime.go:308","msg":"reconcile succeeded","component":"omni_runtime","controller":"TalosExtensionsController","namespace":"default","type":"TalosVersions.omni.sidero.dev","id":"1.9.6","job":"reconcile","busy":0.034596069}</code></pre>
                             </div>
@@ -1377,6 +1417,7 @@ systemctl --user start omni</code></pre>
                     <div class="relative">
                         <div class="mockup-code bg-base-300 mb-8">
                             <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                Tailscale Installation
                             </div>
                             <div class="p-2 lg:p-4 overflow-x-auto">
                                 <pre class="language-bash text-xs lg:text-sm"><code id="tailscale-install">
@@ -1404,6 +1445,7 @@ tailscale up --auth-key={GENERATEDKEY} --advertise-tags=tag:core</code></pre>
                         <div class="relative">
                             <div class="mockup-code bg-base-300 mb-8">
                                 <div class="bg-base-200 px-4 py-2 text-sm font-mono border-b border-base-content/10">
+                                    Firewall Configuration
                                 </div>
                                 <div class="p-2 lg:p-4 overflow-x-auto">
                                     <pre class="language-bash text-xs lg:text-sm"><code id="ufw-config">
@@ -1437,7 +1479,7 @@ ufw --force enable</code></pre>
 
                     <p>Once it's back online, log in to Omni and confirm everything is functioning as expected.</p>
 
-    <p>From here, your journey continues- full steam ahead!! <span class="icon-[game-icons--steam-locomotive] text-lg menu-icon"></span></p>
+                    <p>From here, your journey continues- full steam ahead!! <span class="icon-[game-icons--steam-locomotive] text-lg menu-icon"></span></p>
                 </div>
             </section>
         </div>

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
     "daisyui": "^5.0.46"
   },
   "devDependencies": {
@@ -17,7 +18,7 @@
     "@iconify/json": "^2.2.369",
     "@iconify/tailwind4": "^1.0.6",
     "sass": "^1.70.0",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.12"
   },
   "scripts": {
     "build:css": "bun x tailwindcss -i ./main.css -o ./wwwroot/css/main.css --minify",
